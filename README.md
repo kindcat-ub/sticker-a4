@@ -1,71 +1,84 @@
 # Sticker/A4
 
-A tiny browser tool for printing text onto physical sticky notes and labels without having to write on them by hand.
+A small browser tool for laying out physical sticky notes on A4 and printing text onto them in two passes.
 
-## What it does
+**Live:** https://stickers.kindcat.dev
 
-Sticker/A4 uses a two-pass print workflow:
+## Quick start
 
-1. Arrange sticker presets on a virtual **A4 (210 × 297 mm)** sheet.
-2. Print faint **GUIDES** showing where to place the physical stickers.
-3. Stick the notes onto the printed guide sheet.
-4. Add text, tabs, and monochrome symbols inside each sticker's configurable text area.
-5. Reinsert the same A4 sheet and print the **CONTENT** pass.
+1. Add **Sticker 76**, **Sticker 90**, or create a custom type.
+2. Place stickers on the virtual A4 sheet. Use snap if you want exact millimetre positioning.
+3. Select a sticker:
+   - drag the outer sticker to move it;
+   - use the **lock** button when its position is final;
+   - drag the text-area handles to resize it;
+   - drag the centre handle to move the whole text area.
+4. Double-click inside the text area to edit text. Tabs and monochrome symbols are supported. **Auto fit** shrinks the font when needed so the text stays inside the text area.
+5. Switch to **GUIDES** and print the placement outlines.
+6. Stick the physical notes onto those outlines.
+7. Switch to **CONTENT**, feed the same A4 sheet back into the printer, and print the text.
+8. If the second pass is shifted, use the global printer **X/Y calibration** instead of moving every sticker.
 
-The editor also includes:
+Useful shortcuts:
 
-- reusable sticker presets and custom sizes;
-- per-sticker printable-area margins;
-- drag/drop positioning and millimetre snapping;
-- inline text editing by double click;
-- tab characters and monochrome semantic symbols;
-- font, size, alignment, and line-height controls;
-- printer X/Y calibration;
-- guide brightness control;
-- named layouts stored in `localStorage`;
-- JSON import/export for backups;
-- installable PWA shell and offline access after the first successful load.
+- **Ctrl+Z** — undo
+- **Ctrl+Shift+Z** — redo
+- **Ctrl+D** — duplicate sticker
+- **Delete** — delete selected sticker
+- **Ctrl+S** — save named layout
+- **Ctrl+P** — print current pass
 
-## Run locally
+## Печать
 
-No build step is required.
-
-You can open `public/index.html` directly, or serve the folder locally:
-
-```bash
-python3 -m http.server 8080 --directory public
-```
-
-Then open `http://localhost:8080`.
-
-## Printing
-
-For predictable physical dimensions, use:
+Для совпадения размеров в диалоге печати выставьте:
 
 - Paper: **A4**
 - Scale: **100%**
 - Margins: **None**
 - Headers and footers: **Off**
 
-If your printer shifts repeated passes slightly, use the built-in X/Y calibration instead of moving every sticker.
+Workflow простой:
 
-## Cloudflare Workers static deployment
+**GUIDES → наклеить стикеры → CONTENT**
 
-The repository includes `wrangler.jsonc` and can be deployed as a static-assets Worker.
+Если повторная подача бумаги даёт смещение, используйте встроенную X/Y-калибровку принтера.
+
+## Layouts and storage
+
+There is no backend. Layouts, sticker types and settings are stored in the browser's **localStorage**.
+
+That means another PC or browser starts with its own local state. Use:
+
+- **Export JSON** — backup or move your layouts;
+- **Import JSON** — restore them on another device.
+
+## Run locally
+
+No build step is required.
+
+```bash
+python3 -m http.server 8080 --directory public
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
+
+## Cloudflare Workers
+
+The repository includes `wrangler.jsonc` and can be deployed as static assets:
 
 ```bash
 npx wrangler deploy
 ```
 
-For Git-based deployment, connect this repository in **Cloudflare → Workers & Pages → Create application → Continue with GitHub**. The Worker name is `sticker-a4` and must match the `name` in `wrangler.jsonc`.
+Production domain:
 
-Intended custom domain:
-
-`stickers.kindcat.dev`
-
-## Storage and privacy
-
-There is no backend. Layouts and sticker presets stay in the browser's `localStorage` unless you explicitly export them as JSON.
+```text
+stickers.kindcat.dev
+```
 
 ## License
 
