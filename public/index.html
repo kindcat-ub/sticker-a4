@@ -49,6 +49,12 @@ input, select, textarea, button { font: inherit; color: inherit; }
           <button onClick="{{ p.on }}" style="flex:none;white-space:nowrap;padding:5px 10px;border:0;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button>
         </sc-for>
       </div>
+      <div style="width:1px;height:20px;background:oklch(0.3 0.045 285)"></div>
+      <div style="flex:none;display:flex;gap:2px;background:oklch(0.12 0.03 285);padding:2px;border-radius:6px;border:1px solid oklch(0.26 0.04 285)" title="{{ ui.language }}">
+        <sc-for list="{{ languages }}" as="l" hint-placeholder-count="2">
+          <button onClick="{{ l.on }}" style="padding:5px 8px;border:0;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;background:{{ l.bg }};color:{{ l.fg }}">{{ l.label }}</button>
+        </sc-for>
+      </div>
     </div>
     <div style="flex:1"></div>
     <div style="display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:oklch(0.68 0.04 285)">
@@ -56,14 +62,14 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <span style="color:{{ saveColor }}">{{ saveStatus }}</span>
     </div>
     <div style="flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:'JetBrains Mono',monospace;font-size:11px;color:oklch(0.68 0.04 285);padding:5px 9px;border:1px solid oklch(0.28 0.045 285);border-radius:4px">Ctrl+P → <span style="color:oklch(0.82 0.13 205)">{{ passLabel }}</span></div>
-    <button onClick="{{ togglePrint }}" style="flex:none;white-space:nowrap;padding:8px 16px;border:{{ printBtnBorder }};border-radius:5px;background:oklch(0.7 0.22 350);color:oklch(0.15 0.03 285);font-weight:600;font-size:12px;letter-spacing:0.04em;cursor:pointer;box-shadow:0 0 18px oklch(0.7 0.22 350 / 0.45)" style-hover="background:oklch(0.76 0.2 350)">Печать</button>
+    <button onClick="{{ togglePrint }}" style="flex:none;white-space:nowrap;padding:8px 16px;border:{{ printBtnBorder }};border-radius:5px;background:oklch(0.7 0.22 350);color:oklch(0.15 0.03 285);font-weight:600;font-size:12px;letter-spacing:0.04em;cursor:pointer;box-shadow:0 0 18px oklch(0.7 0.22 350 / 0.45)" style-hover="background:oklch(0.76 0.2 350)">{{ ui.print }}</button>
   </header>
 
   <div data-flat="1" style="flex:1;min-height:0;display:grid;grid-template-columns:clamp(200px,18vw,244px) minmax(0,1fr) clamp(260px,22vw,304px)">
 
     <aside data-ui="1" style="min-height:0;display:flex;flex-direction:column;background:oklch(0.175 0.033 285);border-right:1px solid oklch(0.28 0.045 285)">
       <div style="padding:16px 14px 12px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">
-        <div style="width:6px;height:6px;background:oklch(0.82 0.13 205)"></div>БИБЛИОТЕКА<span style="font-family:'IBM Plex Sans',sans-serif;letter-spacing:0.05em;opacity:0.6">ステッカー</span>
+        <div style="width:6px;height:6px;background:oklch(0.82 0.13 205)"></div>{{ ui.library }}<span style="font-family:'IBM Plex Sans',sans-serif;letter-spacing:0.05em;opacity:0.6">ステッカー</span>
       </div>
       <div style="flex:1;min-height:0;overflow:auto;padding:0 10px;display:flex;flex-direction:column;gap:6px">
         <sc-for list="{{ types }}" as="t" hint-placeholder-count="4">
@@ -81,15 +87,15 @@ input, select, textarea, button { font: inherit; color: inherit; }
               <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:oklch(0.66 0.04 285);margin-top:2px">{{ t.size }}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:3px">
-              <button title="Добавить на лист" onClick="{{ t.onAdd }}" style="width:24px;height:22px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);border-radius:4px;cursor:pointer;font-size:14px;line-height:1;color:oklch(0.82 0.13 205)" style-hover="border-color:oklch(0.82 0.13 205)">+</button>
-              <button title="Редактировать тип" onClick="{{ t.onEdit }}" style="width:24px;height:22px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);border-radius:4px;cursor:pointer;font-size:11px;line-height:1;color:oklch(0.75 0.04 285)" style-hover="border-color:oklch(0.7 0.22 350);color:#fff">✎</button>
+              <button title="{{ ui.addToSheet }}" onClick="{{ t.onAdd }}" style="width:24px;height:22px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);border-radius:4px;cursor:pointer;font-size:14px;line-height:1;color:oklch(0.82 0.13 205)" style-hover="border-color:oklch(0.82 0.13 205)">+</button>
+              <button title="{{ ui.editType }}" onClick="{{ t.onEdit }}" style="width:24px;height:22px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);border-radius:4px;cursor:pointer;font-size:11px;line-height:1;color:oklch(0.75 0.04 285)" style-hover="border-color:oklch(0.7 0.22 350);color:#fff">✎</button>
             </div>
           </div>
         </sc-for>
       </div>
       <div style="padding:12px 10px 14px;display:flex;flex-direction:column;gap:8px;border-top:1px solid oklch(0.26 0.04 285)">
-        <button onClick="{{ newType }}" style="padding:9px;border:1px dashed oklch(0.4 0.06 285);border-radius:6px;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.85 0.02 285)" style-hover="border-color:oklch(0.82 0.13 205);color:#fff">+ Свой тип</button>
-        <div style="font-size:11px;line-height:1.45;color:oklch(0.6 0.035 285);text-wrap:pretty">Перетащите тип на лист или нажмите «+». Размер меняется только в настройках типа.</div>
+        <button onClick="{{ newType }}" style="padding:9px;border:1px dashed oklch(0.4 0.06 285);border-radius:6px;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.85 0.02 285)" style-hover="border-color:oklch(0.82 0.13 205);color:#fff">+ {{ ui.customType }}</button>
+        <div style="font-size:11px;line-height:1.45;color:oklch(0.6 0.035 285);text-wrap:pretty">{{ ui.libraryHint }}</div>
       </div>
     </aside>
 
@@ -99,11 +105,11 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <div data-ui="1" style="position:absolute;left:16px;bottom:12px;right:16px;font-size:11.5px;color:oklch(0.66 0.04 285);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ modeHint }}</div>
       <sc-if value="{{ editing }}" hint-placeholder-val="{{ false }}">
         <div data-ui="1" style="position:absolute;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:6px 8px 6px 12px;max-width:calc(100% - 32px);background:oklch(0.18 0.035 285 / 0.96);border:1px solid oklch(0.34 0.06 285);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 0 1px oklch(0.82 0.13 205 / 0.15);top:{{ edBar.top }};bottom:{{ edBar.bottom }}">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:oklch(0.82 0.13 205)">ТЕКСТ</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:oklch(0.82 0.13 205)">{{ ui.textUpper }}</span>
           <div style="display:flex;flex-wrap:wrap;gap:3px">
             <sc-for list="{{ icons }}" as="ic" hint-placeholder-count="0"><button title="{{ ic.title }}" onMouseDown="{{ ic.down }}" onClick="{{ ic.on }}" style="width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid oklch(0.3 0.045 285);border-radius:4px;background:oklch(0.13 0.03 285);cursor:pointer;color:oklch(0.9 0.01 285);padding:0" style-hover="border-color:oklch(0.82 0.13 205);color:#ffffff"><span style="width:14px;height:14px;background-color:currentColor;mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-image:{{ ic.mask }};-webkit-mask-image:{{ ic.mask }}"></span></button></sc-for>
           </div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.62 0.04 285);white-space:nowrap">Tab — табуляция · Esc — выход</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.62 0.04 285);white-space:nowrap">{{ ui.tabHint }}</span>
         </div>
       </sc-if>
 
@@ -111,7 +117,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
         <div data-sheet="1" ref="{{ sheetRef }}" onPointerDown="{{ onSheetDown }}" onPointerMove="{{ onSheetMove }}" onPointerLeave="{{ onSheetLeave }}" onDragOver="{{ onDragOver }}" onDrop="{{ onDrop }}" style="position:absolute;left:0;top:0;width:210mm;height:297mm;background:#ffffff;transform-origin:0 0;overflow:hidden;transform:{{ sheetTf }}">
           <div data-screen="1" style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(to right, oklch(0.9 0.02 285) 0.15mm, transparent 0.15mm), linear-gradient(to bottom, oklch(0.9 0.02 285) 0.15mm, transparent 0.15mm);background-size:10mm 10mm;display:{{ gridDisplay }}"></div>
           <sc-if value="{{ emptySheet }}" hint-placeholder-val="{{ false }}">
-            <div data-screen="1" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:4mm;letter-spacing:0.1em;color:oklch(0.7 0.04 285)">ПЕРЕТАЩИТЕ СТИКЕР СЮДА</div>
+            <div data-screen="1" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:4mm;letter-spacing:0.1em;color:oklch(0.7 0.04 285)">{{ ui.dropHere }}</div>
           </sc-if>
           <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
             <div data-el="sticker" onPointerDown="{{ it.onDown }}" onDoubleClick="{{ it.onDbl }}" style="position:absolute;touch-action:none;left:{{ it.left }};top:{{ it.top }};width:{{ it.w }};height:{{ it.h }};cursor:{{ it.cursor }};outline:{{ it.outline }};outline-offset:0.5mm">
@@ -145,20 +151,20 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <sc-if value="{{ panelSel }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:22px">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>СТИКЕР</div>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>{{ ui.stickerUpper }}</div>
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
               <div style="font-size:17px;font-weight:600">{{ sel.name }}</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:oklch(0.66 0.04 285)">{{ sel.dims }}</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-              <button onClick="{{ dupSel }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Дубль</button>
-              <button onClick="{{ editSelType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Тип…</button>
-              <button onClick="{{ delSel }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer;color:oklch(0.78 0.14 15)" style-hover="border-color:oklch(0.7 0.18 15)">Удалить</button>
+              <button onClick="{{ dupSel }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.duplicateShort }}</button>
+              <button onClick="{{ editSelType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.typeEllipsis }}</button>
+              <button onClick="{{ delSel }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer;color:oklch(0.78 0.14 15)" style-hover="border-color:oklch(0.7 0.18 15)">{{ ui.delete }}</button>
             </div>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ПОЗИЦИЯ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.positionUpper }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <sc-for list="{{ posFields }}" as="f" hint-placeholder-count="2">
                 <label style="display:flex;flex-direction:column;gap:4px">
@@ -171,7 +177,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
 
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ОБЛАСТЬ ТЕКСТА</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.textAreaUpper }}</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:oklch(0.7 0.22 350)">{{ sel.areaDims }}</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -183,21 +189,21 @@ input, select, textarea, button { font: inherit; color: inherit; }
               </sc-for>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <button onClick="{{ resetArea }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Как в типе</button>
-              <button onClick="{{ areaToType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Сохранить в тип</button>
+              <button onClick="{{ resetArea }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.asType }}</button>
+              <button onClick="{{ areaToType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.saveToType }}</button>
             </div>
-            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">Тяните маркеры на листе (когда включена «Область»).</div>
+            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">{{ ui.areaHint }}</div>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ТЕКСТ</div>
-            <textarea ref="{{ textRef }}" value="{{ sel.text }}" onChange="{{ onText }}" rows="4" placeholder="Текст на стикере…" style="width:100%;resize:vertical;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:9px;font-size:13px;line-height:1.45;outline:none" style-focus="border-color:oklch(0.7 0.22 350)"></textarea>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.textUpper }}</div>
+            <textarea ref="{{ textRef }}" value="{{ sel.text }}" onChange="{{ onText }}" rows="4" placeholder="{{ ui.textPlaceholder }}" style="width:100%;resize:vertical;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:9px;font-size:13px;line-height:1.45;outline:none" style-focus="border-color:oklch(0.7 0.22 350)"></textarea>
             <div style="display:flex;flex-direction:column;gap:6px">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">СИМВОЛЫ</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">{{ ui.symbolsUpper }}</span>
               <div style="display:flex;flex-wrap:wrap;gap:4px">
                 <sc-for list="{{ icons }}" as="ic" hint-placeholder-count="0"><button title="{{ ic.title }}" onMouseDown="{{ ic.down }}" onClick="{{ ic.on }}" style="width:29px;height:29px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid oklch(0.3 0.045 285);border-radius:4px;background:oklch(0.13 0.03 285);cursor:pointer;color:oklch(0.9 0.01 285);padding:0" style-hover="border-color:oklch(0.82 0.13 205);color:#ffffff"><span style="width:14px;height:14px;background-color:currentColor;mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-image:{{ ic.mask }};-webkit-mask-image:{{ ic.mask }}"></span></button></sc-for>
               </div>
-              <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">В поле символ выглядит как {имя}. Двойной клик внутри области на листе — редактирование на месте.</div>
+              <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">{{ ui.symbolHint }}</div>
             </div>
             <select value="{{ sel.font }}" onChange="{{ onFont }}" style="width:100%;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:7px 8px;font-size:12px;outline:none">
               <sc-for list="{{ fonts }}" as="fo" hint-placeholder-count="0"><option value="{{ fo }}">{{ fo }}</option></sc-for>
@@ -211,18 +217,18 @@ input, select, textarea, button { font: inherit; color: inherit; }
               </sc-for>
             </div>
             <div style="display:flex;flex-direction:column;gap:4px">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">ПО ГОРИЗОНТАЛИ</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">{{ ui.horizontalUpper }}</span>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:oklch(0.12 0.03 285);padding:2px;border-radius:5px;border:1px solid oklch(0.28 0.045 285)">
                 <sc-for list="{{ hSeg }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.on }}" style="padding:6px 4px;border:0;border-radius:4px;cursor:pointer;font-size:12px;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:4px">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">ПО ВЕРТИКАЛИ</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">{{ ui.verticalUpper }}</span>
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:oklch(0.12 0.03 285);padding:2px;border-radius:5px;border:1px solid oklch(0.28 0.045 285)">
                 <sc-for list="{{ vSeg }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.on }}" style="padding:6px 4px;border:0;border-radius:4px;cursor:pointer;font-size:12px;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
               </div>
             </div>
-            <button onClick="{{ styleToAll }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Применить стиль ко всем</button>
+            <button onClick="{{ styleToAll }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.applyStyleAll }}</button>
           </div>
         </div>
       </sc-if>
@@ -230,15 +236,15 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <sc-if value="{{ panelType }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:22px">
           <div style="display:flex;align-items:center;justify-content:space-between">
-            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.82 0.13 205)"></div>ТИП СТИКЕРА</div>
-            <button onClick="{{ closeType }}" style="border:0;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.7 0.04 285)" style-hover="color:#fff">Готово</button>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.82 0.13 205)"></div>{{ ui.stickerTypeUpper }}</div>
+            <button onClick="{{ closeType }}" style="border:0;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.7 0.04 285)" style-hover="color:#fff">{{ ui.done }}</button>
           </div>
           <label style="display:flex;flex-direction:column;gap:4px">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">НАЗВАНИЕ</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">{{ ui.nameUpper }}</span>
             <input value="{{ et.name }}" onChange="{{ onTypeName }}" style="width:100%;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:7px 9px;font-size:13px;outline:none" style-focus="border-color:oklch(0.7 0.22 350)">
           </label>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ФИЗИЧЕСКИЙ РАЗМЕР</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.physicalSizeUpper }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <sc-for list="{{ typeSizeFields }}" as="f" hint-placeholder-count="2">
                 <label style="display:flex;flex-direction:column;gap:4px">
@@ -247,10 +253,10 @@ input, select, textarea, button { font: inherit; color: inherit; }
                 </label>
               </sc-for>
             </div>
-            <div style="font-size:11px;color:oklch(0.6 0.035 285)">Применяется ко всем экземплярам этого типа на листе ({{ et.count }}).</div>
+            <div style="font-size:11px;color:oklch(0.6 0.035 285)">{{ ui.appliesToInstances }} ({{ et.count }}).</div>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ОБЛАСТЬ ТЕКСТА ПО УМОЛЧАНИЮ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.defaultTextAreaUpper }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <sc-for list="{{ typeAreaFields }}" as="f" hint-placeholder-count="4">
                 <label style="display:flex;flex-direction:column;gap:4px">
@@ -259,28 +265,28 @@ input, select, textarea, button { font: inherit; color: inherit; }
                 </label>
               </sc-for>
             </div>
-            <button onClick="{{ typeAreaToAll }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Применить ко всем на листе</button>
+            <button onClick="{{ typeAreaToAll }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.applyToAllSheet }}</button>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ПРЕВЬЮ-ИЗОБРАЖЕНИЕ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.previewImageUpper }}</div>
             <sc-if value="{{ et.hasImg }}" hint-placeholder-val="{{ false }}">
               <div style="height:120px;border-radius:4px;background:oklch(0.12 0.03 285);display:flex;align-items:center;justify-content:center;padding:8px">
                 <div style="width:100%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:center;background-image:{{ et.bgImg }}"></div>
               </div>
             </sc-if>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <button onClick="{{ pickImg }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Загрузить</button>
-              <button onClick="{{ clearImg }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Убрать</button>
+              <button onClick="{{ pickImg }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.upload }}</button>
+              <button onClick="{{ clearImg }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.remove }}</button>
             </div>
             <label style="display:flex;flex-direction:column;gap:6px">
-              <span style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)"><span>ПРОЗРАЧНОСТЬ</span><span>{{ et.opText }}</span></span>
+              <span style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)"><span>{{ ui.opacityUpper }}</span><span>{{ et.opText }}</span></span>
               <input type="range" min="0" max="100" value="{{ et.op }}" onChange="{{ onTypeOp }}" style="width:100%;accent-color:oklch(0.7 0.22 350)">
             </label>
-            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">Видно вместе с контурами в редакторе. Никогда не печатается.</div>
+            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">{{ ui.previewHint }}</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-            <button onClick="{{ dupType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Дублировать тип</button>
-            <button onClick="{{ delType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer;color:oklch(0.78 0.14 15)" style-hover="border-color:oklch(0.7 0.18 15)">Удалить тип</button>
+            <button onClick="{{ dupType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.duplicateType }}</button>
+            <button onClick="{{ delType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer;color:oklch(0.78 0.14 15)" style-hover="border-color:oklch(0.7 0.18 15)">{{ ui.deleteType }}</button>
           </div>
         </div>
       </sc-if>
@@ -288,11 +294,11 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <sc-if value="{{ panelPrint }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:22px">
           <div style="display:flex;align-items:center;justify-content:space-between">
-            <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:17px;font-weight:600">Печать</div><div style="font-size:11px;color:oklch(0.6 0.04 285)">印刷</div></div>
-            <button onClick="{{ closePrint }}" style="border:0;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.7 0.04 285)" style-hover="color:#fff">Закрыть</button>
+            <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:17px;font-weight:600">{{ ui.print }}</div><div style="font-size:11px;color:oklch(0.6 0.04 285)">印刷</div></div>
+            <button onClick="{{ closePrint }}" style="border:0;background:transparent;cursor:pointer;font-size:12px;color:oklch(0.7 0.04 285)" style-hover="color:#fff">{{ ui.close }}</button>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>ПРОХОД</div>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>{{ ui.passUpper }}</div>
             <sc-for list="{{ passCards }}" as="p" hint-placeholder-count="2">
               <button onClick="{{ p.on }}" style="text-align:left;padding:12px;border-radius:6px;cursor:pointer;display:flex;flex-direction:column;gap:4px;background:{{ p.bg }};border:{{ p.border }}">
                 <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:{{ p.accent }}">{{ p.num }}</span>
@@ -302,7 +308,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
             </sc-for>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">КАЛИБРОВКА ПРИНТЕРА</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.printerCalibrationUpper }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <sc-for list="{{ calFields }}" as="f" hint-placeholder-count="2">
                 <label style="display:flex;flex-direction:column;gap:4px">
@@ -311,16 +317,16 @@ input, select, textarea, button { font: inherit; color: inherit; }
                 </label>
               </sc-for>
             </div>
-            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">Сдвигает весь лист при печати. «+X» — вправо, «+Y» — вниз. На экране не отображается. Печать не зависит от того, что включено в редакторе.</div>
-            <button onClick="{{ resetCal }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Сбросить смещение</button>
+            <div style="font-size:11px;color:oklch(0.6 0.035 285);line-height:1.45">{{ ui.calibrationHint }}</div>
+            <button onClick="{{ resetCal }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.resetOffset }}</button>
           </div>
           <label style="display:flex;flex-direction:column;gap:6px">
-            <span style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><span>ЯРКОСТЬ НАПРАВЛЯЮЩИХ</span><span style="color:oklch(0.82 0.13 205)">{{ toneText }}</span></span>
+            <span style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><span>{{ ui.guideBrightnessUpper }}</span><span style="color:oklch(0.82 0.13 205)">{{ toneText }}</span></span>
             <input type="range" min="3" max="40" value="{{ tone }}" onChange="{{ onTone }}" style="width:100%;accent-color:oklch(0.7 0.22 350)">
-            <div style="display:flex;align-items:center;gap:10px;font-size:11px;color:oklch(0.6 0.035 285)"><div style="width:38px;height:22px;background:#fff;border-radius:2px;display:flex;align-items:center;justify-content:center"><div style="width:28px;height:14px;border:{{ toneSample }}"></div></div>Насыщенность линии на бумаге</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:11px;color:oklch(0.6 0.035 285)"><div style="width:38px;height:22px;background:#fff;border-radius:2px;display:flex;align-items:center;justify-content:center"><div style="width:28px;height:14px;border:{{ toneSample }}"></div></div>{{ ui.lineSaturation }}</div>
           </label>
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">В ДИАЛОГЕ ПЕЧАТИ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.printDialogUpper }}</div>
             <sc-for list="{{ printChecklist }}" as="c" hint-placeholder-count="4">
               <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid oklch(0.25 0.04 285);font-size:12px"><span style="color:oklch(0.72 0.03 285)">{{ c.k }}</span><span style="font-family:'JetBrains Mono',monospace;color:oklch(0.82 0.13 205)">{{ c.v }}</span></div>
             </sc-for>
@@ -332,31 +338,31 @@ input, select, textarea, button { font: inherit; color: inherit; }
       <sc-if value="{{ panelSheet }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:22px">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>МАКЕТ</div>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)"><div style="width:6px;height:6px;background:oklch(0.7 0.22 350)"></div>{{ ui.layoutUpper }}</div>
             <input value="{{ layoutName }}" onChange="{{ onLayoutName }}" style="width:100%;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:8px 9px;font-size:13px;outline:none" style-focus="border-color:oklch(0.7 0.22 350)">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <button onClick="{{ newLayout }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Новый</button>
-              <button onClick="{{ saveLayout }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.7 0.22 350 / 0.6);background:oklch(0.25 0.06 330);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.7 0.22 350)">Сохранить</button>
+              <button onClick="{{ newLayout }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.newLayout }}</button>
+              <button onClick="{{ saveLayout }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.7 0.22 350 / 0.6);background:oklch(0.25 0.06 330);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.7 0.22 350)">{{ ui.save }}</button>
             </div>
-            <div style="font-size:11px;color:oklch(0.6 0.035 285)">Текущее состояние сохраняется автоматически. «Сохранить» добавляет именованную копию.</div>
+            <div style="font-size:11px;color:oklch(0.6 0.035 285)">{{ ui.autosaveHint }}</div>
           </div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">СОХРАНЁННЫЕ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.savedUpper }}</div>
             <sc-if value="{{ noLayouts }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:12px;color:oklch(0.55 0.035 285);padding:6px 0">Пока пусто.</div>
+              <div style="font-size:12px;color:oklch(0.55 0.035 285);padding:6px 0">{{ ui.empty }}</div>
             </sc-if>
             <sc-for list="{{ savedLayouts }}" as="l" hint-placeholder-count="0">
               <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:7px 8px;border-radius:5px;background:oklch(0.2 0.038 285);border:{{ l.border }}">
                 <div style="min-width:0"><div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.58 0.035 285)">{{ l.meta }}</div></div>
-                <button onClick="{{ l.onLoad }}" style="padding:4px 8px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);font-size:11px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Открыть</button>
-                <button onClick="{{ l.onDel }}" title="Удалить" style="padding:4px 7px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);font-size:11px;cursor:pointer;color:oklch(0.75 0.12 15)" style-hover="border-color:oklch(0.7 0.18 15)">×</button>
+                <button onClick="{{ l.onLoad }}" style="padding:4px 8px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);font-size:11px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.open }}</button>
+                <button onClick="{{ l.onDel }}" title="{{ ui.delete }}" style="padding:4px 7px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.15 0.03 285);font-size:11px;cursor:pointer;color:oklch(0.75 0.12 15)" style-hover="border-color:oklch(0.7 0.18 15)">×</button>
               </div>
             </sc-for>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">ПРИВЯЗКА</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.snapUpper }}</div>
             <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:12.5px">Snap к сетке</span>
+              <span style="font-size:12.5px">{{ ui.snapToGrid }}</span>
               <button onClick="{{ toggleSnap }}" style="width:38px;height:22px;border-radius:11px;border:0;cursor:pointer;position:relative;background:{{ snapBg }}"><div style="position:absolute;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;left:{{ snapKnob }}"></div></button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:oklch(0.12 0.03 285);padding:2px;border-radius:5px;border:1px solid oklch(0.28 0.045 285)">
@@ -364,15 +370,15 @@ input, select, textarea, button { font: inherit; color: inherit; }
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">РЕЗЕРВНАЯ КОПИЯ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.backupUpper }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
               <button onClick="{{ exportJson }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Export JSON</button>
               <button onClick="{{ importJson }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">Import JSON</button>
             </div>
-            <button onClick="{{ clearSheet }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:transparent;font-size:12px;cursor:pointer;color:oklch(0.75 0.12 15)" style-hover="border-color:oklch(0.7 0.18 15)">Очистить лист</button>
+            <button onClick="{{ clearSheet }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:transparent;font-size:12px;cursor:pointer;color:oklch(0.75 0.12 15)" style-hover="border-color:oklch(0.7 0.18 15)">{{ ui.clearSheet }}</button>
           </div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">КЛАВИШИ</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:oklch(0.72 0.04 285)">{{ ui.keysUpper }}</div>
             <sc-for list="{{ shortcuts }}" as="k" hint-placeholder-count="5">
               <div style="display:flex;justify-content:space-between;font-size:11.5px;color:oklch(0.66 0.03 285)"><span>{{ k.d }}</span><span style="font-family:'JetBrains Mono',monospace;color:oklch(0.85 0.02 285)">{{ k.k }}</span></div>
             </sc-for>
@@ -385,17 +391,17 @@ input, select, textarea, button { font: inherit; color: inherit; }
   <sc-if value="{{ showHint }}" hint-placeholder-val="{{ false }}">
     <div data-ui="1" style="position:fixed;inset:0;z-index:50;background:rgba(6,4,16,0.72);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px">
       <div style="width:420px;max-width:100%;background:oklch(0.18 0.035 285);border:1px solid oklch(0.32 0.05 285);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 0 0 1px oklch(0.7 0.22 350 / 0.2), 0 30px 80px rgba(0,0,0,0.7)">
-        <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:18px;font-weight:600">Перед первой печатью</div><div style="font-size:11px;color:oklch(0.6 0.04 285)">印刷設定</div></div>
-        <div style="font-size:13px;line-height:1.5;color:oklch(0.78 0.02 285)">Иначе размеры на бумаге не совпадут с миллиметрами макета. В диалоге печати выставьте:</div>
+        <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:18px;font-weight:600">{{ ui.beforeFirstPrint }}</div><div style="font-size:11px;color:oklch(0.6 0.04 285)">印刷設定</div></div>
+        <div style="font-size:13px;line-height:1.5;color:oklch(0.78 0.02 285)">{{ ui.firstPrintIntro }}</div>
         <div style="display:flex;flex-direction:column">
           <sc-for list="{{ printChecklist }}" as="c" hint-placeholder-count="4">
             <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid oklch(0.26 0.04 285);font-size:13px"><span style="color:oklch(0.75 0.03 285)">{{ c.k }}</span><span style="font-family:'JetBrains Mono',monospace;color:oklch(0.82 0.13 205)">{{ c.v }}</span></div>
           </sc-for>
         </div>
-        <div style="font-size:12px;line-height:1.5;color:oklch(0.65 0.03 285)">Если направляющие смещены, задайте общий X/Y offset в панели печати.</div>
+        <div style="font-size:12px;line-height:1.5;color:oklch(0.65 0.03 285)">{{ ui.offsetHint }}</div>
         <div style="display:flex;justify-content:flex-end;gap:8px">
-          <button onClick="{{ cancelHint }}" style="padding:8px 14px;border-radius:5px;border:1px solid oklch(0.32 0.05 285);background:transparent;font-size:12px;cursor:pointer">Отмена</button>
-          <button onClick="{{ confirmHint }}" style="padding:8px 16px;border:0;border-radius:5px;background:oklch(0.7 0.22 350);color:oklch(0.15 0.03 285);font-weight:600;font-size:12px;cursor:pointer">Понятно, печатать</button>
+          <button onClick="{{ cancelHint }}" style="padding:8px 14px;border-radius:5px;border:1px solid oklch(0.32 0.05 285);background:transparent;font-size:12px;cursor:pointer">{{ ui.cancel }}</button>
+          <button onClick="{{ confirmHint }}" style="padding:8px 16px;border:0;border-radius:5px;background:oklch(0.7 0.22 350);color:oklch(0.15 0.03 285);font-weight:600;font-size:12px;cursor:pointer">{{ ui.okPrint }}</button>
         </div>
       </div>
     </div>
@@ -433,6 +439,71 @@ const ICONS = {
   search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
   settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>'
 };
+const I18N = {
+  ru: {
+    print:'Печать', library:'БИБЛИОТЕКА', addToSheet:'Добавить на лист', editType:'Редактировать тип', customType:'Свой тип',
+    libraryHint:'Перетащите тип на лист или нажмите «+». Размер меняется только в настройках типа.', textUpper:'ТЕКСТ',
+    tabHint:'Tab — табуляция · Esc — выход', dropHere:'ПЕРЕТАЩИТЕ СТИКЕР СЮДА', stickerUpper:'СТИКЕР', duplicateShort:'Дубль', typeEllipsis:'Тип…', delete:'Удалить',
+    positionUpper:'ПОЗИЦИЯ', textAreaUpper:'ОБЛАСТЬ ТЕКСТА', asType:'Как в типе', saveToType:'Сохранить в тип', areaHint:'Тяните маркеры на листе (когда включена «Область»).',
+    textPlaceholder:'Текст на стикере…', symbolsUpper:'СИМВОЛЫ', symbolHint:'В поле символ выглядит как {имя}. Двойной клик внутри области на листе — редактирование на месте.',
+    horizontalUpper:'ПО ГОРИЗОНТАЛИ', verticalUpper:'ПО ВЕРТИКАЛИ', applyStyleAll:'Применить стиль ко всем', stickerTypeUpper:'ТИП СТИКЕРА', done:'Готово',
+    nameUpper:'НАЗВАНИЕ', physicalSizeUpper:'ФИЗИЧЕСКИЙ РАЗМЕР', appliesToInstances:'Применяется ко всем экземплярам этого типа на листе', defaultTextAreaUpper:'ОБЛАСТЬ ТЕКСТА ПО УМОЛЧАНИЮ',
+    applyToAllSheet:'Применить ко всем на листе', previewImageUpper:'ПРЕВЬЮ-ИЗОБРАЖЕНИЕ', upload:'Загрузить', remove:'Убрать', opacityUpper:'ПРОЗРАЧНОСТЬ',
+    previewHint:'Видно вместе с контурами в редакторе. Никогда не печатается.', duplicateType:'Дублировать тип', deleteType:'Удалить тип', close:'Закрыть', passUpper:'ПРОХОД',
+    printerCalibrationUpper:'КАЛИБРОВКА ПРИНТЕРА', calibrationHint:'Сдвигает весь лист при печати. «+X» — вправо, «+Y» — вниз. На экране не отображается. Печать не зависит от того, что включено в редакторе.',
+    resetOffset:'Сбросить смещение', guideBrightnessUpper:'ЯРКОСТЬ НАПРАВЛЯЮЩИХ', lineSaturation:'Насыщенность линии на бумаге', printDialogUpper:'В ДИАЛОГЕ ПЕЧАТИ',
+    layoutUpper:'МАКЕТ', newLayout:'Новый', save:'Сохранить', autosaveHint:'Текущее состояние сохраняется автоматически. «Сохранить» добавляет именованную копию.', savedUpper:'СОХРАНЁННЫЕ',
+    empty:'Пока пусто.', open:'Открыть', snapUpper:'ПРИВЯЗКА', snapToGrid:'Snap к сетке', backupUpper:'РЕЗЕРВНАЯ КОПИЯ', clearSheet:'Очистить лист', keysUpper:'КЛАВИШИ',
+    beforeFirstPrint:'Перед первой печатью', firstPrintIntro:'Иначе размеры на бумаге не совпадут с миллиметрами макета. В диалоге печати выставьте:',
+    offsetHint:'Если направляющие смещены, задайте общий X/Y offset в панели печати.', cancel:'Отмена', okPrint:'Понятно, печатать', language:'Язык интерфейса',
+    iconTitles:{check:'Галочка',x:'Крест',alert:'Внимание',info:'Инфо',star:'Звезда',heart:'Сердце',flag:'Флаг','arrow-right':'Вправо','arrow-left':'Влево','arrow-up':'Вверх','arrow-down':'Вниз',circle:'Круг',task:'Задача',pin:'Метка',clock:'Часы',wrench:'Ключ',bulb:'Идея',search:'Поиск',settings:'Настройки'},
+    layoutPrefix:'Макет', unnamed:'Без названия', customSticker:'Свой стикер', copySuffix:' копия',
+    confirmNew:'Начать новый макет? Несохранённые изменения текущего листа пропадут.', jsonError:'Не удалось прочитать JSON.',
+    toggles:{bounds:['Контуры','Физические границы стикеров'],area:['Область','Область текста и маркеры'],text:['Текст','Текст на стикерах']},
+    passGuides:'направляющие', passText:'текст', modeHint:'Тяните стикеры · маркеры = область текста · двойной клик = текст · на печать: ',
+    memoryFull:'· память переполнена', savedStatus:'· сохранено', autoStatus:'· авто',
+    checklist:[['Бумага','A4'],['Масштаб','100%'],['Поля','Нет'],['Колонтитулы','Выкл']],
+    dirs:{top:'СВЕРХУ',right:'СПРАВА',bottom:'СНИЗУ',left:'СЛЕВА'}, fontSize:'КЕГЛЬ', lineHeight:'ИНТЕРЛИНЬЯЖ',
+    alignH:{left:'Влево',center:'Центр',right:'Вправо'}, alignV:{top:'Верх',center:'Центр',bottom:'Низ'}, width:'ШИРИНА', height:'ВЫСОТА',
+    passCards:{guides:['01 · ガイド','Направляющие','Только бледные контуры. Наклейте стикеры поверх них.'],content:['02 · 文字','Текст','Только текст. Вставьте тот же лист с наклеенными стикерами.']},
+    offsetX:'СМЕЩЕНИЕ X', offsetY:'СМЕЩЕНИЕ Y', printPrefix:'Печать · ', pieces:'шт',
+    shortcuts:[['Сдвиг','← ↑ → ↓'],['Сдвиг ×10','Shift + стрелки'],['Дублировать','Ctrl+D'],['Удалить','Del'],['Сохранить макет','Ctrl+S'],['Печать прохода','Ctrl+P']],
+    confirmClear:'Удалить все стикеры с листа?', confirmDeleteLayout:n=>`Удалить макет «${n}»?`,
+    confirmDeleteType:(n,c)=>`Удалить тип «${n}»?${c?` С листа также будут удалены экземпляры: ${c}.`:''}`
+  },
+  en: {
+    print:'Print', library:'LIBRARY', addToSheet:'Add to sheet', editType:'Edit type', customType:'Custom type',
+    libraryHint:'Drag a type onto the sheet or click “+”. Size is changed only in type settings.', textUpper:'TEXT',
+    tabHint:'Tab — insert tab · Esc — exit', dropHere:'DRAG A STICKER HERE', stickerUpper:'STICKER', duplicateShort:'Duplicate', typeEllipsis:'Type…', delete:'Delete',
+    positionUpper:'POSITION', textAreaUpper:'TEXT AREA', asType:'Use type defaults', saveToType:'Save to type', areaHint:'Drag the handles on the sheet when “Area” is enabled.',
+    textPlaceholder:'Sticker text…', symbolsUpper:'SYMBOLS', symbolHint:'In the text field a symbol appears as {name}. Double-click inside the area on the sheet to edit in place.',
+    horizontalUpper:'HORIZONTAL', verticalUpper:'VERTICAL', applyStyleAll:'Apply style to all', stickerTypeUpper:'STICKER TYPE', done:'Done',
+    nameUpper:'NAME', physicalSizeUpper:'PHYSICAL SIZE', appliesToInstances:'Applies to all instances of this type on the sheet', defaultTextAreaUpper:'DEFAULT TEXT AREA',
+    applyToAllSheet:'Apply to all on sheet', previewImageUpper:'PREVIEW IMAGE', upload:'Upload', remove:'Remove', opacityUpper:'OPACITY',
+    previewHint:'Visible with bounds in the editor. Never printed.', duplicateType:'Duplicate type', deleteType:'Delete type', close:'Close', passUpper:'PASS',
+    printerCalibrationUpper:'PRINTER CALIBRATION', calibrationHint:'Offsets the whole sheet when printing. “+X” moves right, “+Y” moves down. It is not shown on screen. Printing does not depend on editor visibility.',
+    resetOffset:'Reset offset', guideBrightnessUpper:'GUIDE DARKNESS', lineSaturation:'Line intensity on paper', printDialogUpper:'IN THE PRINT DIALOG',
+    layoutUpper:'LAYOUT', newLayout:'New', save:'Save', autosaveHint:'Current state is saved automatically. “Save” adds a named copy.', savedUpper:'SAVED',
+    empty:'Nothing saved yet.', open:'Open', snapUpper:'SNAP', snapToGrid:'Snap to grid', backupUpper:'BACKUP', clearSheet:'Clear sheet', keysUpper:'KEYS',
+    beforeFirstPrint:'Before the first print', firstPrintIntro:'Otherwise the physical dimensions may not match the layout millimeters. In the print dialog set:',
+    offsetHint:'If the guides are shifted, set a global X/Y offset in the print panel.', cancel:'Cancel', okPrint:'Got it, print', language:'Interface language',
+    iconTitles:{check:'Check',x:'Cross',alert:'Warning',info:'Info',star:'Star',heart:'Heart',flag:'Flag','arrow-right':'Right','arrow-left':'Left','arrow-up':'Up','arrow-down':'Down',circle:'Circle',task:'Task',pin:'Pin',clock:'Clock',wrench:'Wrench',bulb:'Idea',search:'Search',settings:'Settings'},
+    layoutPrefix:'Layout', unnamed:'Untitled', customSticker:'Custom sticker', copySuffix:' copy',
+    confirmNew:'Start a new layout? Unsaved changes on the current sheet will be lost.', jsonError:'Could not read JSON.',
+    toggles:{bounds:['Bounds','Physical sticker bounds'],area:['Area','Text area and handles'],text:['Text','Sticker text']},
+    passGuides:'guides', passText:'text', modeHint:'Drag stickers · handles = text area · double-click = text · print pass: ',
+    memoryFull:'· storage full', savedStatus:'· saved', autoStatus:'· auto',
+    checklist:[['Paper','A4'],['Scale','100%'],['Margins','None'],['Headers/footers','Off']],
+    dirs:{top:'TOP',right:'RIGHT',bottom:'BOTTOM',left:'LEFT'}, fontSize:'FONT SIZE', lineHeight:'LINE HEIGHT',
+    alignH:{left:'Left',center:'Center',right:'Right'}, alignV:{top:'Top',center:'Center',bottom:'Bottom'}, width:'WIDTH', height:'HEIGHT',
+    passCards:{guides:['01 · ガイド','Guides','Faint bounds only. Place the physical stickers over them.'],content:['02 · 文字','Text','Text only. Reinsert the same sheet with the stickers attached.']},
+    offsetX:'OFFSET X', offsetY:'OFFSET Y', printPrefix:'Print · ', pieces:'pcs',
+    shortcuts:[['Move','← ↑ → ↓'],['Move ×10','Shift + arrows'],['Duplicate','Ctrl+D'],['Delete','Del'],['Save layout','Ctrl+S'],['Print pass','Ctrl+P']],
+    confirmClear:'Remove all stickers from the sheet?', confirmDeleteLayout:n=>`Delete layout “${n}”?`,
+    confirmDeleteType:(n,c)=>`Delete type “${n}”?${c?` Its ${c} instance(s) will also be removed from the sheet.`:''}`
+  }
+};
+const UI = lang => I18N[lang] || I18N.ru;
 const ICON_TITLES = { check: 'Галочка', x: 'Крест', alert: 'Внимание', info: 'Инфо', star: 'Звезда', heart: 'Сердце', flag: 'Флаг', 'arrow-right': 'Вправо', 'arrow-left': 'Влево', 'arrow-up': 'Вверх', 'arrow-down': 'Вниз', circle: 'Круг', task: 'Задача', pin: 'Метка', clock: 'Часы', wrench: 'Ключ', bulb: 'Идея', search: 'Поиск', settings: 'Настройки' };
 const ICON_RE = new RegExp('\\{(' + Object.keys(ICONS).join('|') + ')\\}', 'g');
 const MASK = {};
@@ -456,7 +527,7 @@ const PRESETS = () => [
   { id: 'cat76', name: 'Cat Square 76', w: 76, h: 76, m: { t: 8, r: 5, b: 22, l: 5 }, img: null, op: 60 },
   { id: 'tab', name: 'Narrow Tab', w: 76, h: 20, m: { t: 3, r: 4, b: 3, l: 4 }, img: null, op: 60 }
 ];
-const BASE = () => ({ library: PRESETS(), items: [], layoutName: 'Макет 1', layouts: {}, cal: { x: 0, y: 0 }, tone: 12, snap: true, step: 1, hintSeen: false, pass: 'guides', show: { bounds: true, area: true, text: true }, defFont: 'IBM Plex Sans', defSize: 14 });
+const BASE = () => ({ lang: 'ru', library: PRESETS(), items: [], layoutName: 'Макет 1', layouts: {}, cal: { x: 0, y: 0 }, tone: 12, snap: true, step: 1, hintSeen: false, pass: 'guides', show: { bounds: true, area: true, text: true }, defFont: 'IBM Plex Sans', defSize: 14 });
 const PERSIST = Object.keys(BASE());
 const MAG = 'oklch(0.7 0.22 350)', CY = 'oklch(0.82 0.13 205)';
 
@@ -472,6 +543,7 @@ class Component extends DCLogic {
     return {};
   }
   componentDidMount() {
+    document.documentElement.lang = this.state.lang || 'ru';
     this.styleEl = document.createElement('style');
     this.styleEl.id = 'sticker-a4-print';
     document.head.appendChild(this.styleEl);
@@ -489,6 +561,7 @@ class Component extends DCLogic {
     this.styleEl && this.styleEl.remove();
   }
   componentDidUpdate() {
+    document.documentElement.lang = this.state.lang || 'ru';
     this.applyCss();
     this.mountEditor();
     clearTimeout(this.st);
@@ -678,20 +751,22 @@ ${pass === 'guides'
   };
 
   saveLayout = () => {
-    const name = (this.state.layoutName || '').trim() || 'Без названия';
+    const ui = UI(this.state.lang);
+    const name = (this.state.layoutName || '').trim() || ui.unnamed;
     this.setState(s => ({ layoutName: name, layouts: { ...s.layouts, [name]: { items: JSON.parse(JSON.stringify(s.items)), saved: Date.now() } }, flash: true }));
     clearTimeout(this.ft); this.ft = setTimeout(() => this.setState({ flash: false }), 1400);
   };
   newLayout = () => {
-    if (this.state.items.length && !confirm('Начать новый макет? Несохранённые изменения текущего листа пропадут.')) return;
-    this.setState(s => ({ items: [], selId: null, layoutName: 'Макет ' + (Object.keys(s.layouts).length + 1) }));
+    const ui = UI(this.state.lang);
+    if (this.state.items.length && !confirm(ui.confirmNew)) return;
+    this.setState(s => ({ items: [], selId: null, layoutName: ui.layoutPrefix + ' ' + (Object.keys(s.layouts).length + 1) }));
   };
   loadLayout = name => {
     const l = this.state.layouts[name]; if (!l) return;
     this.setState({ items: JSON.parse(JSON.stringify(l.items)), layoutName: name, selId: null });
   };
   delLayout = name => {
-    if (!confirm(`Удалить макет «${name}»?`)) return;
+    if (!confirm(UI(this.state.lang).confirmDeleteLayout(name))) return;
     this.setState(s => { const L = { ...s.layouts }; delete L[name]; return { layouts: L }; });
   };
   exportJson = () => {
@@ -710,7 +785,7 @@ ${pass === 'guides'
         if (!Array.isArray(d.library)) throw 0;
         const o = {}; PERSIST.forEach(k => { if (d[k] !== undefined) o[k] = d[k]; });
         this.setState({ ...o, selId: null, editTypeId: null });
-      } catch (err) { alert('Не удалось прочитать JSON.'); }
+      } catch (err) { alert(UI(this.state.lang).jsonError); }
     };
     rd.readAsText(f);
   };
@@ -730,7 +805,7 @@ ${pass === 'guides'
     rd.readAsDataURL(f);
   };
   newType = () => {
-    const t = { id: uid(), name: 'Свой стикер', w: 50, h: 30, m: { t: 3, r: 3, b: 3, l: 3 }, img: null, op: 60 };
+    const t = { id: uid(), name: UI(this.state.lang).customSticker, w: 50, h: 30, m: { t: 3, r: 3, b: 3, l: 3 }, img: null, op: 60 };
     this.setState(s => ({ library: [...s.library, t], editTypeId: t.id, selId: null, printPanel: false }));
   };
 
@@ -748,6 +823,8 @@ ${pass === 'guides'
 
   renderVals() {
     const s = this.state, { pass, scale } = s, ppm = MM * scale;
+    const ui = UI(s.lang);
+    const languages = ['ru','en'].map(k => ({ label:k.toUpperCase(), on:()=>this.setState({lang:k}), bg:s.lang===k?'oklch(0.27 0.07 330)':'transparent', fg:s.lang===k?'#fff':'oklch(0.62 0.04 285)' }));
     const sh = s.show || { bounds: true, area: true, text: true };
     const out0 = {};
     const g = Math.round(255 * (1 - s.tone / 100));
@@ -804,7 +881,7 @@ ${pass === 'guides'
     });
 
     const setShow = p => this.setState(st => ({ show: { ...(st.show || sh), ...p } }));
-    const toggles = [['bounds', 'Контуры', 'Физические границы стикеров', CY], ['area', 'Область', 'Область текста и маркеры', MAG], ['text', 'Текст', 'Текст на стикерах', 'oklch(0.92 0.01 285)']].map(([k, label, title, c]) => ({
+    const toggles = [['bounds', ...ui.toggles.bounds, CY], ['area', ...ui.toggles.area, MAG], ['text', ...ui.toggles.text, 'oklch(0.92 0.01 285)']].map(([k, label, title, c]) => ({
       label, title, on: () => setShow({ [k]: !sh[k] }),
       bg: sh[k] ? 'oklch(0.23 0.045 285)' : 'transparent',
       border: sh[k] ? '1px solid oklch(0.36 0.06 285)' : '1px solid oklch(0.26 0.04 285)',
@@ -816,8 +893,8 @@ ${pass === 'guides'
       const on = ['bounds', 'area', 'text'].every(x => !!sh[x] === PR[k][x]);
       return { label: k, on: () => setShow(PR[k]), bg: on ? 'oklch(0.27 0.07 330)' : 'transparent', fg: on ? '#fff' : 'oklch(0.62 0.04 285)' };
     });
-    const passLabel = pass === 'guides' ? 'направляющие' : 'текст';
-    const modeHint = 'Тяните стикеры · маркеры = область текста · двойной клик = текст · на печать: ' + passLabel;
+    const passLabel = pass === 'guides' ? ui.passGuides : ui.passText;
+    const modeHint = ui.modeHint + passLabel;
     const edIt = s.editId ? s.items.find(i => i.id === s.editId && tmap[i.typeId]) : null;
     if (edIt) {
       const t = tmap[edIt.typeId], m = edIt.m;
@@ -827,14 +904,14 @@ ${pass === 'guides'
     } else { out0.editing = false; out0.ed = {}; out0.edBar = { top: '34px', bottom: 'auto' }; }
     const panelPrint = !!s.printPanel, panelType = !panelPrint && !!et, panelSel = !panelPrint && !et && !!sel;
     const out = Object.assign(out0, {
-      toggles, presets, layoutName: s.layoutName,
+      ui, languages, toggles, presets, layoutName: s.layoutName,
       editRef: this.editRef, stopEv: e => e.stopPropagation(),
       onEdInput: this.syncEd, onEdKey: this.onEdKey, onEdBlur: this.onEdBlur, onEdPaste: this.onEdPaste,
-      icons: Object.keys(ICONS).map(k => ({ title: ICON_TITLES[k] + ' · {' + k + '}', mask: MASK[k], down: e => e.preventDefault(), on: () => this.insertIcon(k) })),
+      icons: Object.keys(ICONS).map(k => ({ title: ui.iconTitles[k] + ' · {' + k + '}', mask: MASK[k], down: e => e.preventDefault(), on: () => this.insertIcon(k) })),
       togglePrint: () => this.setState({ printPanel: !s.printPanel, editTypeId: null }),
       closePrint: () => this.setState({ printPanel: false }),
       printBtnBorder: s.printPanel ? '1px solid #fff' : '1px solid transparent', passLabel, modeHint,
-      saveStatus: s.saveErr ? '· память переполнена' : s.flash ? '· сохранено' : '· авто',
+      saveStatus: s.saveErr ? ui.memoryFull : s.flash ? ui.savedStatus : ui.autoStatus,
       saveColor: s.saveErr ? 'oklch(0.75 0.16 25)' : s.flash ? CY : 'oklch(0.55 0.04 285)',
       printNow: () => this.doPrint(s.pass),
       types, newType: this.newType,
@@ -863,7 +940,7 @@ ${pass === 'guides'
       showHint: s.showHint,
       cancelHint: () => this.setState({ showHint: false }),
       confirmHint: () => this.setState({ hintSeen: true, showHint: false }, () => setTimeout(() => window.print(), 150)),
-      printChecklist: [{ k: 'Бумага', v: 'A4' }, { k: 'Масштаб', v: '100%' }, { k: 'Поля', v: 'Нет' }, { k: 'Колонтитулы', v: 'Выкл' }],
+      printChecklist: ui.checklist.map(([k,v]) => ({k,v})),
       onImgFile: this.onImgFile, onJsonFile: this.onJsonFile, fonts: FONTS
     });
 
@@ -877,14 +954,14 @@ ${pass === 'guides'
         this.F(id + 'x', 'X', 'mm', sel.x, v => this.updItem(id, { x: r1(cl(v, 0, 210 - t.w)) })),
         this.F(id + 'y', 'Y', 'mm', sel.y, v => this.updItem(id, { y: r1(cl(v, 0, 297 - t.h)) }))
       ];
-      out.areaFields = [['t', 'СВЕРХУ'], ['r', 'СПРАВА'], ['b', 'СНИЗУ'], ['l', 'СЛЕВА']].map(([k, label]) =>
+      out.areaFields = [['t', ui.dirs.top], ['r', ui.dirs.right], ['b', ui.dirs.bottom], ['l', ui.dirs.left]].map(([k, label]) =>
         this.F(id + 'm' + k, label, 'mm', sel.m[k], v => this.updItem(id, i => ({ m: { ...i.m, [k]: r1(Math.max(0, v)) } }))));
       out.textFields = [
-        this.F(id + 'fs', 'КЕГЛЬ', 'pt', sel.size, v => { if (v >= 3) { this.updItem(id, { size: r1(cl(v, 3, 300)) }); this.setState({ defSize: r1(cl(v, 3, 300)) }); } }),
-        this.F(id + 'lh', 'ИНТЕРЛИНЬЯЖ', '×', sel.lh || 1.2, v => { if (v > 0) this.updItem(id, { lh: cl(v, 0.5, 4) }); })
+        this.F(id + 'fs', ui.fontSize, 'pt', sel.size, v => { if (v >= 3) { this.updItem(id, { size: r1(cl(v, 3, 300)) }); this.setState({ defSize: r1(cl(v, 3, 300)) }); } }),
+        this.F(id + 'lh', ui.lineHeight, '×', sel.lh || 1.2, v => { if (v > 0) this.updItem(id, { lh: cl(v, 0.5, 4) }); })
       ];
-      out.hSeg = this.seg([['left', 'Влево'], ['center', 'Центр'], ['right', 'Вправо']], sel.ha, v => this.updItem(id, { ha: v }));
-      out.vSeg = this.seg([['top', 'Верх'], ['center', 'Центр'], ['bottom', 'Низ']], sel.va, v => this.updItem(id, { va: v }));
+      out.hSeg = this.seg([['left', ui.alignH.left], ['center', ui.alignH.center], ['right', ui.alignH.right]], sel.ha, v => this.updItem(id, { ha: v }));
+      out.vSeg = this.seg([['top', ui.alignV.top], ['center', ui.alignV.center], ['bottom', ui.alignV.bottom]], sel.va, v => this.updItem(id, { va: v }));
       out.onText = e => this.updItem(id, { text: e.target.value });
       out.onFont = e => { this.updItem(id, { font: e.target.value }); this.setState({ defFont: e.target.value }); };
       out.dupSel = () => this.dup(id);
@@ -899,10 +976,10 @@ ${pass === 'guides'
       const id = et.id, count = s.items.filter(i => i.typeId === id).length;
       out.et = { name: et.name, hasImg: !!et.img, bgImg: et.img ? 'url("' + et.img + '")' : 'none', op: et.op ?? 60, opText: (et.op ?? 60) + '%', count };
       out.typeSizeFields = [
-        this.F(id + 'w', 'ШИРИНА', 'mm', et.w, v => { if (v >= 5) this.updType(id, { w: r1(cl(v, 5, 210)) }); }),
-        this.F(id + 'h', 'ВЫСОТА', 'mm', et.h, v => { if (v >= 5) this.updType(id, { h: r1(cl(v, 5, 297)) }); })
+        this.F(id + 'w', ui.width, 'mm', et.w, v => { if (v >= 5) this.updType(id, { w: r1(cl(v, 5, 210)) }); }),
+        this.F(id + 'h', ui.height, 'mm', et.h, v => { if (v >= 5) this.updType(id, { h: r1(cl(v, 5, 297)) }); })
       ];
-      out.typeAreaFields = [['t', 'СВЕРХУ'], ['r', 'СПРАВА'], ['b', 'СНИЗУ'], ['l', 'СЛЕВА']].map(([k, label]) =>
+      out.typeAreaFields = [['t', ui.dirs.top], ['r', ui.dirs.right], ['b', ui.dirs.bottom], ['l', ui.dirs.left]].map(([k, label]) =>
         this.F(id + 'tm' + k, label, 'mm', et.m[k], v => this.updType(id, x => ({ m: { ...x.m, [k]: r1(Math.max(0, v)) } }))));
       out.onTypeName = e => this.updType(id, { name: e.target.value });
       out.onTypeOp = e => this.updType(id, { op: +e.target.value });
@@ -910,32 +987,29 @@ ${pass === 'guides'
       out.clearImg = () => this.updType(id, { img: null });
       out.closeType = () => this.setState({ editTypeId: null });
       out.typeAreaToAll = () => this.setState(st => ({ items: st.items.map(i => i.typeId === id ? { ...i, m: { ...et.m } } : i) }));
-      out.dupType = () => { const c = { ...et, id: uid(), name: et.name + ' копия', m: { ...et.m } }; this.setState(st => ({ library: [...st.library, c], editTypeId: c.id })); };
+      out.dupType = () => { const c = { ...et, id: uid(), name: et.name + ui.copySuffix, m: { ...et.m } }; this.setState(st => ({ library: [...st.library, c], editTypeId: c.id })); };
       out.delType = () => {
-        if (!confirm(`Удалить тип «${et.name}»?` + (count ? ` С листа также будут удалены экземпляры: ${count}.` : ''))) return;
+        if (!confirm(ui.confirmDeleteType(et.name, count))) return;
         this.setState(st => ({ library: st.library.filter(t => t.id !== id), items: st.items.filter(i => i.typeId !== id), editTypeId: null, selId: null }));
       };
     }
 
     if (panelPrint) {
-      out.passCards = [
-        ['guides', '01 · ガイド', 'Направляющие', 'Только бледные контуры. Наклейте стикеры поверх них.'],
-        ['content', '02 · 文字', 'Текст', 'Только текст. Вставьте тот же лист с наклеенными стикерами.']
-      ].map(([k, num, title, desc]) => ({
+      out.passCards = [['guides', ...ui.passCards.guides], ['content', ...ui.passCards.content]].map(([k, num, title, desc]) => ({
         num, title, desc, on: () => this.setState({ pass: k }),
         bg: pass === k ? 'oklch(0.23 0.06 320)' : 'oklch(0.2 0.038 285)',
         border: pass === k ? `1px solid ${MAG}` : '1px solid oklch(0.28 0.045 285)',
         accent: pass === k ? MAG : 'oklch(0.6 0.04 285)'
       }));
       out.calFields = [
-        this.F('calx', 'СМЕЩЕНИЕ X', 'mm', s.cal.x, v => this.setState(st => ({ cal: { ...st.cal, x: r1(cl(v, -20, 20)) } }))),
-        this.F('caly', 'СМЕЩЕНИЕ Y', 'mm', s.cal.y, v => this.setState(st => ({ cal: { ...st.cal, y: r1(cl(v, -20, 20)) } })))
+        this.F('calx', ui.offsetX, 'mm', s.cal.x, v => this.setState(st => ({ cal: { ...st.cal, x: r1(cl(v, -20, 20)) } }))),
+        this.F('caly', ui.offsetY, 'mm', s.cal.y, v => this.setState(st => ({ cal: { ...st.cal, y: r1(cl(v, -20, 20)) } })))
       ];
       out.resetCal = () => this.setState({ cal: { x: 0, y: 0 }, drafts: {} });
       out.tone = s.tone; out.toneText = s.tone + '%';
       out.onTone = e => this.setState({ tone: +e.target.value });
       out.toneSample = `1px solid rgb(${g},${g},${g})`;
-      out.printBtnText = 'Печать · ' + passLabel;
+      out.printBtnText = ui.printPrefix + passLabel;
     }
 
     if (out.panelSheet) {
@@ -944,7 +1018,7 @@ ${pass === 'guides'
       out.newLayout = this.newLayout; out.saveLayout = this.saveLayout;
       out.noLayouts = !L.length;
       out.savedLayouts = L.map(([name, l]) => ({
-        name, meta: `${l.items.length} шт · ${new Date(l.saved).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`,
+        name, meta: `${l.items.length} ${ui.pieces} · ${new Date(l.saved).toLocaleString(s.lang === 'en' ? 'en-US' : 'ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`,
         border: name === s.layoutName ? `1px solid oklch(0.7 0.22 350 / 0.5)` : '1px solid transparent',
         onLoad: () => this.loadLayout(name), onDel: () => this.delLayout(name)
       }));
@@ -954,12 +1028,8 @@ ${pass === 'guides'
       out.stepSeg = this.seg([[0.5, '0.5'], [1, '1 mm'], [2, '2'], [5, '5']], s.step, v => this.setState({ step: v, snap: true }));
       out.exportJson = this.exportJson;
       out.importJson = () => this.jsonRef.current && this.jsonRef.current.click();
-      out.clearSheet = () => { if (s.items.length && confirm('Удалить все стикеры с листа?')) this.setState({ items: [], selId: null }); };
-      out.shortcuts = [
-        { d: 'Сдвиг', k: '← ↑ → ↓' }, { d: 'Сдвиг ×10', k: 'Shift + стрелки' },
-        { d: 'Дублировать', k: 'Ctrl+D' }, { d: 'Удалить', k: 'Del' },
-        { d: 'Сохранить макет', k: 'Ctrl+S' }, { d: 'Печать прохода', k: 'Ctrl+P' }
-      ];
+      out.clearSheet = () => { if (s.items.length && confirm(ui.confirmClear)) this.setState({ items: [], selId: null }); };
+      out.shortcuts = ui.shortcuts.map(([d,k]) => ({d,k}));
     }
     return out;
   }
