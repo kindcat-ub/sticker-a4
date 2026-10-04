@@ -1,55 +1,58 @@
 # Sticker/A4
 
+[Русский](README.ru.md)
+
 A small browser tool for laying out physical sticky notes on A4 and printing text onto them in two passes.
 
 **Live:** https://stickers.kindcat.dev
 
 ## Quick start
 
-1. Add **Sticker 76**, **Sticker 90**, or create a custom type.
-2. Place stickers on the virtual A4 sheet. Use snap if you want exact millimetre positioning.
+1. Add **Sticker 76**, **Sticker 90**, or create a custom sticker type.
+2. Place stickers on the virtual **A4 (210 × 297 mm)** sheet.
 3. Select a sticker:
-   - drag the outer sticker to move it;
+   - drag it to move it;
    - use the **lock** button when its position is final;
-   - drag the text-area handles to resize it;
+   - resize the text area with its handles;
    - drag the centre handle to move the whole text area.
-4. Double-click inside the text area to edit text. Tabs and monochrome symbols are supported. **Auto fit** shrinks the font when needed so the text stays inside the text area.
-5. Switch to **GUIDES** and print the placement outlines.
-6. Stick the physical notes onto those outlines.
-7. Switch to **CONTENT**, feed the same A4 sheet back into the printer, and print the text.
-8. If the second pass is shifted, use the global printer **X/Y calibration** instead of moving every sticker.
+4. Double-click inside the text area to edit text.
+5. Use **Auto fit** if the text should shrink automatically to stay inside the text area.
+6. Switch to **GUIDES** and print the placement outlines.
+7. Stick the physical notes onto those outlines.
+8. Switch to **CONTENT**, feed the same A4 sheet back into the printer, and print the text.
+9. If the second pass is shifted, use the global printer **X/Y calibration** instead of moving every sticker.
 
-Useful shortcuts:
+The editor also supports tabs, monochrome symbols, millimetre snapping, custom sticker sizes, named layouts, JSON import/export, and RU/EN UI.
 
-- **Ctrl+Z** — undo
-- **Ctrl+Shift+Z** — redo
-- **Ctrl+D** — duplicate sticker
-- **Delete** — delete selected sticker
-- **Ctrl+S** — save named layout
-- **Ctrl+P** — print current pass
+## Printing
 
-## Печать
-
-Для совпадения размеров в диалоге печати выставьте:
+For predictable physical dimensions, use:
 
 - Paper: **A4**
 - Scale: **100%**
 - Margins: **None**
 - Headers and footers: **Off**
 
-Workflow простой:
+Workflow:
 
-**GUIDES → наклеить стикеры → CONTENT**
+**GUIDES → place physical stickers → CONTENT**
 
-Если повторная подача бумаги даёт смещение, используйте встроенную X/Y-калибровку принтера.
+## Shortcuts
+
+- **Ctrl+Z** — undo
+- **Ctrl+Shift+Z** — redo
+- **Ctrl+D** — duplicate selected sticker
+- **Delete** — delete selected sticker
+- **Ctrl+S** — save named layout
+- **Ctrl+P** — print current pass
 
 ## Layouts and storage
 
-There is no backend. Layouts, sticker types and settings are stored in the browser's **localStorage**.
+There is no backend. Layouts, sticker types, and settings are stored in the browser's **localStorage**.
 
-That means another PC or browser starts with its own local state. Use:
+Another PC or browser starts with its own local state. Use:
 
-- **Export JSON** — backup or move your layouts;
+- **Export JSON** — back up or move layouts;
 - **Import JSON** — restore them on another device.
 
 ## Run locally
