@@ -1,4 +1,4 @@
-const CACHE = "sticker-a4-v2";
+const CACHE = "sticker-a4-v3";
 const CORE = [
   "./",
   "./index.html",

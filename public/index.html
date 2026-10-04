@@ -131,15 +131,15 @@ input, select, textarea, button { font: inherit; color: inherit; }
               <sc-if value="{{ it.showLabel }}" hint-placeholder-val="{{ false }}">
                 <div data-screen="1" style="position:absolute;pointer-events:none;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'JetBrains Mono',monospace;font-size:2.6mm;letter-spacing:0.06em;color:oklch(0.6 0.08 300);left:{{ it.ml }};top:{{ it.mt }};right:{{ it.mr }};bottom:{{ it.mb }}">{{ it.label }}</div>
               </sc-if>
-              <div data-el="text" style="position:absolute;pointer-events:none;flex-direction:column;overflow:hidden;white-space:pre-wrap;overflow-wrap:break-word;tab-size:4;color:#111111;left:{{ it.ml }};top:{{ it.mt }};right:{{ it.mr }};bottom:{{ it.mb }};display:{{ it.textDisplay }};justify-content:{{ it.jc }};text-align:{{ it.ta }};font-family:{{ it.font }};font-size:{{ it.fs }};line-height:{{ it.lh }}"><div><sc-for list="{{ it.segs }}" as="sg" hint-placeholder-count="0"><sc-if value="{{ sg.icon }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block;width:1em;height:1em;vertical-align:-0.14em;background-color:currentColor;mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-image:{{ sg.mask }};-webkit-mask-image:{{ sg.mask }}"></span></sc-if><sc-if value="{{ sg.isText }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if></sc-for></div></div>
+              <div data-el="text" style="position:absolute;pointer-events:none;flex-direction:column;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;hyphens:auto;tab-size:4;color:#111111;left:{{ it.ml }};top:{{ it.mt }};right:{{ it.mr }};bottom:{{ it.mb }};display:{{ it.textDisplay }};justify-content:{{ it.jc }};text-align:{{ it.ta }};font-family:{{ it.font }};font-size:{{ it.fs }};line-height:{{ it.lh }}"><div><sc-for list="{{ it.segs }}" as="sg" hint-placeholder-count="0"><sc-if value="{{ sg.icon }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block;width:1em;height:1em;vertical-align:-0.14em;background-color:currentColor;mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-image:{{ sg.mask }};-webkit-mask-image:{{ sg.mask }}"></span></sc-if><sc-if value="{{ sg.isText }}" hint-placeholder-val="{{ false }}"><span>{{ sg.t }}</span></sc-if></sc-for></div></div>
             </div>
           </sc-for>
           <sc-for list="{{ handles }}" as="h" hint-placeholder-count="0">
-            <div data-screen="1" onPointerDown="{{ h.onDown }}" style="position:absolute;background:#ffffff;touch-action:none;left:{{ h.left }};top:{{ h.top }};width:{{ h.size }};height:{{ h.size }};cursor:{{ h.cursor }};border:{{ h.border }};border-radius:{{ h.radius }}"></div>
+            <div data-screen="1" onPointerDown="{{ h.onDown }}" style="position:absolute;background:{{ h.bg }};touch-action:none;left:{{ h.left }};top:{{ h.top }};width:{{ h.size }};height:{{ h.size }};cursor:{{ h.cursor }};border:{{ h.border }};border-radius:{{ h.radius }}"></div>
           </sc-for>
           <sc-if value="{{ editing }}" hint-placeholder-val="{{ false }}">
             <div data-screen="1" onPointerDown="{{ stopEv }}" style="position:absolute;display:flex;flex-direction:column;cursor:text;outline:0.3mm solid oklch(0.75 0.13 205);outline-offset:0.4mm;background:oklch(0.98 0.01 220 / 0.6);left:{{ ed.left }};top:{{ ed.top }};width:{{ ed.w }};height:{{ ed.h }};justify-content:{{ ed.jc }}">
-              <div ref="{{ editRef }}" onInput="{{ onEdInput }}" onKeyDown="{{ onEdKey }}" onBlur="{{ onEdBlur }}" onPaste="{{ onEdPaste }}" style="outline:none;white-space:pre-wrap;overflow-wrap:break-word;tab-size:4;color:#111111;min-height:1em;caret-color:oklch(0.6 0.22 350);text-align:{{ ed.ta }};font-family:{{ ed.font }};font-size:{{ ed.fs }};line-height:{{ ed.lh }}"></div>
+              <div ref="{{ editRef }}" onInput="{{ onEdInput }}" onKeyDown="{{ onEdKey }}" onBlur="{{ onEdBlur }}" onPaste="{{ onEdPaste }}" style="outline:none;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;hyphens:auto;tab-size:4;color:#111111;min-height:1em;caret-color:oklch(0.6 0.22 350);text-align:{{ ed.ta }};font-family:{{ ed.font }};font-size:{{ ed.fs }};line-height:{{ ed.lh }}"></div>
             </div>
           </sc-if>
         </div>
@@ -161,6 +161,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
               <button onClick="{{ editSelType }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer" style-hover="border-color:oklch(0.82 0.13 205)">{{ ui.typeEllipsis }}</button>
               <button onClick="{{ delSel }}" style="padding:7px 6px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.22 0.04 285);font-size:12px;cursor:pointer;color:oklch(0.78 0.14 15)" style-hover="border-color:oklch(0.7 0.18 15)">{{ ui.delete }}</button>
             </div>
+            <button onClick="{{ toggleLock }}" style="padding:7px 8px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:oklch(0.18 0.035 285);font-size:12px;cursor:pointer;text-align:left" style-hover="border-color:oklch(0.82 0.13 205)">{{ sel.lockIcon }} {{ sel.lockLabel }}</button>
           </div>
 
           <div style="display:flex;flex-direction:column;gap:10px">
@@ -215,6 +216,10 @@ input, select, textarea, button { font: inherit; color: inherit; }
                   <div style="position:relative"><input value="{{ f.v }}" onChange="{{ f.ch }}" onBlur="{{ f.bl }}" onFocus="{{ selAll }}" style="width:100%;background:oklch(0.13 0.03 285);border:1px solid oklch(0.3 0.045 285);border-radius:4px;padding:7px 30px 7px 9px;font-family:'JetBrains Mono',monospace;font-size:12px;outline:none" style-focus="border-color:oklch(0.7 0.22 350)"><span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:oklch(0.55 0.04 285);pointer-events:none">{{ f.unit }}</span></div>
                 </label>
               </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 9px;border:1px solid oklch(0.28 0.045 285);border-radius:5px;background:oklch(0.16 0.03 285)">
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px">{{ ui.autoFit }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:{{ sel.overflow ? 'oklch(0.78 0.14 15)' : 'oklch(0.62 0.04 285)' }}">{{ sel.overflow ? ui.overflowText : ui.fittedSize + ': ' + sel.fitSize }}</span></div>
+              <button onClick="{{ toggleAutoFit }}" style="padding:5px 9px;border-radius:4px;border:1px solid oklch(0.32 0.05 285);background:{{ sel.autoFit ? 'oklch(0.3 0.08 330)' : 'oklch(0.13 0.03 285)' }};font-size:11px;cursor:pointer">{{ sel.autoFitText }}</button>
             </div>
             <div style="display:flex;flex-direction:column;gap:4px">
               <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:oklch(0.64 0.04 285)">{{ ui.horizontalUpper }}</span>
@@ -456,6 +461,7 @@ const I18N = {
     empty:'Пока пусто.', open:'Открыть', snapUpper:'ПРИВЯЗКА', snapToGrid:'Snap к сетке', backupUpper:'РЕЗЕРВНАЯ КОПИЯ', clearSheet:'Очистить лист', keysUpper:'КЛАВИШИ',
     beforeFirstPrint:'Перед первой печатью', firstPrintIntro:'Иначе размеры на бумаге не совпадут с миллиметрами макета. В диалоге печати выставьте:',
     offsetHint:'Если направляющие смещены, задайте общий X/Y offset в панели печати.', cancel:'Отмена', okPrint:'Понятно, печатать', language:'Язык интерфейса',
+    lockPosition:'Закрепить позицию', unlockPosition:'Разблокировать позицию', autoFit:'Автоподгонка', autoFitOn:'Вкл', autoFitOff:'Выкл', fittedSize:'Фактический кегль', overflowText:'Текст не помещается даже при минимальном размере',
     iconTitles:{check:'Галочка',x:'Крест',alert:'Внимание',info:'Инфо',star:'Звезда',heart:'Сердце',flag:'Флаг','arrow-right':'Вправо','arrow-left':'Влево','arrow-up':'Вверх','arrow-down':'Вниз',circle:'Круг',task:'Задача',pin:'Метка',clock:'Часы',wrench:'Ключ',bulb:'Идея',search:'Поиск',settings:'Настройки'},
     layoutPrefix:'Макет', unnamed:'Без названия', customSticker:'Свой стикер', copySuffix:' копия',
     confirmNew:'Начать новый макет? Несохранённые изменения текущего листа пропадут.', jsonError:'Не удалось прочитать JSON.',
@@ -467,7 +473,7 @@ const I18N = {
     alignH:{left:'Влево',center:'Центр',right:'Вправо'}, alignV:{top:'Верх',center:'Центр',bottom:'Низ'}, width:'ШИРИНА', height:'ВЫСОТА',
     passCards:{guides:['01 · ガイド','Направляющие','Только бледные контуры. Наклейте стикеры поверх них.'],content:['02 · 文字','Текст','Только текст. Вставьте тот же лист с наклеенными стикерами.']},
     offsetX:'СМЕЩЕНИЕ X', offsetY:'СМЕЩЕНИЕ Y', printPrefix:'Печать · ', pieces:'шт',
-    shortcuts:[['Сдвиг','← ↑ → ↓'],['Сдвиг ×10','Shift + стрелки'],['Дублировать','Ctrl+D'],['Удалить','Del'],['Сохранить макет','Ctrl+S'],['Печать прохода','Ctrl+P']],
+    shortcuts:[['Сдвиг','← ↑ → ↓'],['Сдвиг ×10','Shift + стрелки'],['Отменить','Ctrl+Z'],['Повторить','Ctrl+Shift+Z'],['Дублировать','Ctrl+D'],['Удалить','Del'],['Сохранить макет','Ctrl+S'],['Печать прохода','Ctrl+P']],
     confirmClear:'Удалить все стикеры с листа?', confirmDeleteLayout:n=>`Удалить макет «${n}»?`,
     confirmDeleteType:(n,c)=>`Удалить тип «${n}»?${c?` С листа также будут удалены экземпляры: ${c}.`:''}`
   },
@@ -487,6 +493,7 @@ const I18N = {
     empty:'Nothing saved yet.', open:'Open', snapUpper:'SNAP', snapToGrid:'Snap to grid', backupUpper:'BACKUP', clearSheet:'Clear sheet', keysUpper:'KEYS',
     beforeFirstPrint:'Before the first print', firstPrintIntro:'Otherwise the physical dimensions may not match the layout millimeters. In the print dialog set:',
     offsetHint:'If the guides are shifted, set a global X/Y offset in the print panel.', cancel:'Cancel', okPrint:'Got it, print', language:'Interface language',
+    lockPosition:'Lock position', unlockPosition:'Unlock position', autoFit:'Auto fit', autoFitOn:'On', autoFitOff:'Off', fittedSize:'Effective size', overflowText:'Text still overflows at the minimum size',
     iconTitles:{check:'Check',x:'Cross',alert:'Warning',info:'Info',star:'Star',heart:'Heart',flag:'Flag','arrow-right':'Right','arrow-left':'Left','arrow-up':'Up','arrow-down':'Down',circle:'Circle',task:'Task',pin:'Pin',clock:'Clock',wrench:'Wrench',bulb:'Idea',search:'Search',settings:'Settings'},
     layoutPrefix:'Layout', unnamed:'Untitled', customSticker:'Custom sticker', copySuffix:' copy',
     confirmNew:'Start a new layout? Unsaved changes on the current sheet will be lost.', jsonError:'Could not read JSON.',
@@ -498,7 +505,7 @@ const I18N = {
     alignH:{left:'Left',center:'Center',right:'Right'}, alignV:{top:'Top',center:'Center',bottom:'Bottom'}, width:'WIDTH', height:'HEIGHT',
     passCards:{guides:['01 · ガイド','Guides','Faint bounds only. Place the physical stickers over them.'],content:['02 · 文字','Text','Text only. Reinsert the same sheet with the stickers attached.']},
     offsetX:'OFFSET X', offsetY:'OFFSET Y', printPrefix:'Print · ', pieces:'pcs',
-    shortcuts:[['Move','← ↑ → ↓'],['Move ×10','Shift + arrows'],['Duplicate','Ctrl+D'],['Delete','Del'],['Save layout','Ctrl+S'],['Print pass','Ctrl+P']],
+    shortcuts:[['Move','← ↑ → ↓'],['Move ×10','Shift + arrows'],['Undo','Ctrl+Z'],['Redo','Ctrl+Shift+Z'],['Duplicate','Ctrl+D'],['Delete','Del'],['Save layout','Ctrl+S'],['Print pass','Ctrl+P']],
     confirmClear:'Remove all stickers from the sheet?', confirmDeleteLayout:n=>`Delete layout “${n}”?`,
     confirmDeleteType:(n,c)=>`Delete type “${n}”?${c?` Its ${c} instance(s) will also be removed from the sheet.`:''}`
   }
@@ -521,24 +528,58 @@ const segsOf = text => {
 const ICON_CSS = 'display:inline-block;width:1em;height:1em;vertical-align:-0.14em;background-color:currentColor;mask-size:contain;mask-repeat:no-repeat;mask-position:center;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;';
 const iconEl = name => { const s = document.createElement('span'); s.contentEditable = 'false'; s.dataset.icon = name; s.setAttribute('style', ICON_CSS + 'mask-image:' + MASK[name] + ';-webkit-mask-image:' + MASK[name]); return s; };
 const fontCss = f => f === 'Caveat' ? "'Caveat', cursive" : f === 'JetBrains Mono' ? "'JetBrains Mono', monospace" : (f === 'IBM Plex Serif' || f === 'Georgia' || f === 'Times New Roman') ? `'${f}', serif` : `'${f}', sans-serif`;
-const PRESETS = () => [
-  { id: 'sq76', name: 'Square 76', w: 76, h: 76, m: { t: 6, r: 6, b: 6, l: 6 }, img: null, op: 60 },
-  { id: 'sq90', name: 'Square 90', w: 90, h: 90, m: { t: 7, r: 7, b: 7, l: 7 }, img: null, op: 60 },
-  { id: 'cat76', name: 'Cat Square 76', w: 76, h: 76, m: { t: 8, r: 5, b: 22, l: 5 }, img: null, op: 60 },
-  { id: 'tab', name: 'Narrow Tab', w: 76, h: 20, m: { t: 3, r: 4, b: 3, l: 4 }, img: null, op: 60 }
+const builtinName = (id, lang='ru') => id === 'sq76' ? (lang === 'en' ? 'Sticker 76' : 'Стикер 76') : id === 'sq90' ? (lang === 'en' ? 'Sticker 90' : 'Стикер 90') : '';
+const PRESETS = (lang='ru') => [
+  { id: 'sq76', name: builtinName('sq76', lang), w: 76, h: 76, m: { t: 6, r: 6, b: 6, l: 6 }, img: null, op: 60 },
+  { id: 'sq90', name: builtinName('sq90', lang), w: 90, h: 90, m: { t: 7, r: 7, b: 7, l: 7 }, img: null, op: 60 }
 ];
-const BASE = () => ({ lang: 'ru', library: PRESETS(), items: [], layoutName: 'Макет 1', layouts: {}, cal: { x: 0, y: 0 }, tone: 12, snap: true, step: 1, hintSeen: false, pass: 'guides', show: { bounds: true, area: true, text: true }, defFont: 'IBM Plex Sans', defSize: 14 });
+const BASE = () => ({ lang: 'ru', library: PRESETS('ru'), items: [], layoutName: 'Макет 1', layouts: {}, cal: { x: 0, y: 0 }, tone: 12, snap: true, step: 1, hintSeen: false, pass: 'guides', show: { bounds: true, area: true, text: true }, defFont: 'IBM Plex Sans', defSize: 14 });
 const PERSIST = Object.keys(BASE());
 const MAG = 'oklch(0.7 0.22 350)', CY = 'oklch(0.82 0.13 205)';
 
 class Component extends DCLogic {
   state = Object.assign(BASE(), this.loadSaved(), { selId: null, editTypeId: null, printPanel: false, editId: null, scale: 0.5, showHint: false, cursor: null, saveErr: false, drafts: {}, flash: false });
   centerRef = React.createRef(); sheetRef = React.createRef(); textRef = React.createRef(); imgRef = React.createRef(); jsonRef = React.createRef(); editRef = React.createRef();
+  undoStack = []; redoStack = []; fitCache = new Map();
+  itemsSnapshot = () => JSON.stringify(this.state.items || []);
+  remember = snap => {
+    const before = snap || this.itemsSnapshot(), now = this.itemsSnapshot();
+    if (before === now && !snap) { this.undoStack.push(before); }
+    else if (before !== now || snap) this.undoStack.push(before);
+    if (this.undoStack.length > 80) this.undoStack.shift();
+    this.redoStack = [];
+  };
+  rememberBefore = snap => {
+    if (!snap || snap === this.itemsSnapshot()) return;
+    if (this.undoStack[this.undoStack.length - 1] !== snap) this.undoStack.push(snap);
+    if (this.undoStack.length > 80) this.undoStack.shift();
+    this.redoStack = [];
+  };
+  undo = () => {
+    if (!this.undoStack.length) return;
+    const cur = this.itemsSnapshot(), prev = this.undoStack.pop();
+    this.redoStack.push(cur);
+    this.setState({ items: JSON.parse(prev), selId: null, editId: null });
+  };
+  redo = () => {
+    if (!this.redoStack.length) return;
+    const cur = this.itemsSnapshot(), next = this.redoStack.pop();
+    this.undoStack.push(cur);
+    this.setState({ items: JSON.parse(next), selId: null, editId: null });
+  };
 
   loadSaved() {
     try {
       const s = JSON.parse(localStorage.getItem(KEY) || 'null');
-      if (s && Array.isArray(s.library)) { const o = {}; PERSIST.forEach(k => { if (s[k] !== undefined) o[k] = s[k]; }); return o; }
+      if (s && Array.isArray(s.library)) {
+        const lang = s.lang === 'en' ? 'en' : 'ru', removed = new Set(['cat76','tab']);
+        s.library = s.library.filter(t => !removed.has(t.id)).map(t => (t.id === 'sq76' || t.id === 'sq90') ? { ...t, name: builtinName(t.id, lang) } : t);
+        if (Array.isArray(s.items)) s.items = s.items.filter(i => !removed.has(i.typeId));
+        if (s.layouts && typeof s.layouts === 'object') Object.keys(s.layouts).forEach(k => {
+          const l = s.layouts[k]; if (l && Array.isArray(l.items)) l.items = l.items.filter(i => !removed.has(i.typeId));
+        });
+        const o = {}; PERSIST.forEach(k => { if (s[k] !== undefined) o[k] = s[k]; }); return o;
+      }
     } catch (e) {}
     return {};
   }
@@ -603,8 +644,8 @@ ${pass === 'guides'
 
   addItem = (typeId, x, y) => {
     const t = this.type(typeId); if (!t) return;
-    const s = this.state;
-    const it = { id: uid(), typeId, x: r1(cl(x, 0, 210 - t.w)), y: r1(cl(y, 0, 297 - t.h)), m: { ...t.m }, text: '', font: s.defFont, size: s.defSize, ha: 'center', va: 'center', lh: 1.2 };
+    const s = this.state; this.remember();
+    const it = { id: uid(), typeId, x: r1(cl(x, 0, 210 - t.w)), y: r1(cl(y, 0, 297 - t.h)), m: { ...t.m }, text: '', font: s.defFont, size: s.defSize, minSize: 6, autoFit: true, locked: false, ha: 'center', va: 'center', lh: 1.2 };
     this.setState(st => ({ items: [...st.items, it], selId: it.id, editTypeId: null, printPanel: false }));
   };
   addCentered = typeId => {
@@ -614,11 +655,12 @@ ${pass === 'guides'
   };
   dup = id => {
     const i = this.state.items.find(x => x.id === id); if (!i) return;
+    this.remember();
     const t = this.type(i.typeId);
     const c = { ...i, id: uid(), m: { ...i.m }, x: r1(cl(i.x + 5, 0, 210 - t.w)), y: r1(cl(i.y + 5, 0, 297 - t.h)) };
     this.setState(s => ({ items: [...s.items, c], selId: c.id }));
   };
-  del = id => this.setState(s => ({ items: s.items.filter(i => i.id !== id), selId: s.selId === id ? null : s.selId }));
+  del = id => { this.remember(); this.setState(s => ({ items: s.items.filter(i => i.id !== id), selId: s.selId === id ? null : s.selId })); };
   focusText = id => { this.setState({ selId: id, editTypeId: null, printPanel: false }, () => setTimeout(() => this.textRef.current && this.textRef.current.focus(), 30)); };
 
   onStickerDbl = (e, id) => {
@@ -694,26 +736,41 @@ ${pass === 'guides'
     if (e.button !== 0) return;
     e.stopPropagation();
     const it = this.state.items.find(i => i.id === id);
+    if (!it) return;
     if (this.state.selId !== id || this.state.printPanel || this.state.editTypeId) this.setState({ selId: id, editTypeId: null, printPanel: false });
-    this.drag = { kind: 'move', id, sx: e.clientX, sy: e.clientY, ox: it.x, oy: it.y };
+    if (it.locked) return;
+    this.drag = { kind: 'move', id, sx: e.clientX, sy: e.clientY, ox: it.x, oy: it.y, before: this.itemsSnapshot() };
     this.bindDrag();
   };
   startArea = (e, id, edge) => {
     e.stopPropagation(); e.preventDefault();
-    this.drag = { kind: 'area', id, edge };
+    const it = this.state.items.find(i => i.id === id); if (!it) return;
+    this.drag = edge === 'c'
+      ? { kind: 'area-move', id, sx: e.clientX, sy: e.clientY, om: { ...it.m }, before: this.itemsSnapshot() }
+      : { kind: 'area', id, edge, before: this.itemsSnapshot() };
     this.bindDrag();
   };
   bindDrag() { window.addEventListener('pointermove', this.onPM); window.addEventListener('pointerup', this.onPU); }
-  onPU = () => { this.drag = null; window.removeEventListener('pointermove', this.onPM); window.removeEventListener('pointerup', this.onPU); };
+  onPU = () => {
+    const d = this.drag;
+    if (d && d.before) this.rememberBefore(d.before);
+    this.drag = null; window.removeEventListener('pointermove', this.onPM); window.removeEventListener('pointerup', this.onPU);
+  };
   onPM = e => {
     const d = this.drag, sh = this.sheetRef.current; if (!d || !sh) return;
     const r = sh.getBoundingClientRect(), k = 210 / r.width;
     const it = this.state.items.find(i => i.id === d.id); if (!it) return;
     const t = this.type(it.typeId);
     if (d.kind === 'move') {
+      if (it.locked) return;
       const x = cl(this.sn(d.ox + (e.clientX - d.sx) * k), 0, 210 - t.w);
       const y = cl(this.sn(d.oy + (e.clientY - d.sy) * k), 0, 297 - t.h);
       if (x !== it.x || y !== it.y) this.updItem(d.id, { x: r1(x), y: r1(y) });
+    } else if (d.kind === 'area-move') {
+      const dx = (e.clientX - d.sx) * k, dy = (e.clientY - d.sy) * k, om = d.om;
+      const aw = t.w - om.l - om.r, ah = t.h - om.t - om.b;
+      const nl = r1(cl(this.sn(om.l + dx), 0, t.w - aw)), nt = r1(cl(this.sn(om.t + dy), 0, t.h - ah));
+      this.updItem(d.id, { m: { l:nl, r:r1(t.w-aw-nl), t:nt, b:r1(t.h-ah-nt) } });
     } else {
       const lx = this.sn((e.clientX - r.left) * k - it.x), ly = this.sn((e.clientY - r.top) * k - it.y);
       const m = { ...it.m }, MIN = 2, E = d.edge;
@@ -730,6 +787,8 @@ ${pass === 'guides'
     if (ctrl && key === 'p') { e.preventDefault(); this.doPrint(s.pass); return; }
     if (ctrl && key === 's') { e.preventDefault(); this.saveLayout(); return; }
     if (e.target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+    if (ctrl && key === 'z') { e.preventDefault(); e.shiftKey ? this.redo() : this.undo(); return; }
+    if (ctrl && key === 'y') { e.preventDefault(); this.redo(); return; }
     if (e.key === 'Escape') { this.setState({ selId: null, editId: null, editTypeId: null, showHint: false, printPanel: false }); return; }
     if (!s.selId) return;
     if (ctrl && key === 'd') { e.preventDefault(); this.dup(s.selId); return; }
@@ -738,7 +797,8 @@ ${pass === 'guides'
     if (dirs[e.key]) {
       e.preventDefault();
       const st = (s.snap ? s.step : 0.1) * (e.shiftKey ? 10 : 1);
-      const it = s.items.find(i => i.id === s.selId), t = this.type(it.typeId);
+      const it = s.items.find(i => i.id === s.selId); if (!it || it.locked) return;
+      const t = this.type(it.typeId); this.remember();
       this.updItem(it.id, { x: r1(cl(it.x + dirs[e.key][0] * st, 0, 210 - t.w)), y: r1(cl(it.y + dirs[e.key][1] * st, 0, 297 - t.h)) });
     }
   };
@@ -821,10 +881,36 @@ ${pass === 'guides'
     return opts.map(([v, label]) => ({ label, on: () => fn(v), bg: v === cur ? 'oklch(0.3 0.08 330)' : 'transparent', fg: v === cur ? '#fff' : 'oklch(0.7 0.03 285)' }));
   }
 
+  fitText(it, t) {
+    const max = Math.max(3, +(it.size || 14)), min = Math.min(max, Math.max(3, +(it.minSize || 6)));
+    if (it.autoFit === false || !it.text) return { size: max, overflow: false };
+    const m = it.m || t.m, aw = Math.max(1, t.w - m.l - m.r), ah = Math.max(1, t.h - m.t - m.b);
+    const key = JSON.stringify([it.text,it.font,max,min,it.lh,m,aw,ah]);
+    if (this.fitCache.has(key)) return this.fitCache.get(key);
+    const box = document.createElement('div');
+    box.style.cssText = `position:fixed;left:-10000px;top:-10000px;visibility:hidden;box-sizing:border-box;padding:0;margin:0;width:${aw}mm;height:${ah}mm;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;hyphens:auto;overflow:hidden;font-family:${fontCss(it.font)};line-height:${it.lh || 1.2};`;
+    box.textContent = String(it.text).replace(/\{(?:check|x|alert|info|star|heart|flag|arrow-right|arrow-left|arrow-up|arrow-down|circle|task|pin|clock|wrench|bulb|search|settings)\}/g, '■').replace(/\t/g, '    ');
+    document.body.appendChild(box);
+    const fits = pt => { box.style.fontSize = pt + 'pt'; return box.scrollHeight <= box.clientHeight + 1 && box.scrollWidth <= box.clientWidth + 1; };
+    let size = max, overflow = false;
+    if (!fits(max)) {
+      if (!fits(min)) { size = min; overflow = true; }
+      else {
+        let lo = min, hi = max;
+        for (let n=0;n<12;n++) { const mid=(lo+hi)/2; if (fits(mid)) lo=mid; else hi=mid; }
+        size = Math.floor(lo*10)/10;
+      }
+    }
+    box.remove();
+    const out = { size, overflow }; this.fitCache.set(key, out);
+    if (this.fitCache.size > 300) this.fitCache.clear();
+    return out;
+  }
+
   renderVals() {
     const s = this.state, { pass, scale } = s, ppm = MM * scale;
     const ui = UI(s.lang);
-    const languages = ['ru','en'].map(k => ({ label:k.toUpperCase(), on:()=>this.setState({lang:k}), bg:s.lang===k?'oklch(0.27 0.07 330)':'transparent', fg:s.lang===k?'#fff':'oklch(0.62 0.04 285)' }));
+    const languages = ['ru','en'].map(k => ({ label:k.toUpperCase(), on:()=>this.setState(st=>({lang:k, library:st.library.map(t=>(t.id==='sq76'||t.id==='sq90')?{...t,name:builtinName(t.id,k)}:t)})), bg:s.lang===k?'oklch(0.27 0.07 330)':'transparent', fg:s.lang===k?'#fff':'oklch(0.62 0.04 285)' }));
     const sh = s.show || { bounds: true, area: true, text: true };
     const out0 = {};
     const g = Math.round(255 * (1 - s.tone / 100));
@@ -834,13 +920,13 @@ ${pass === 'guides'
     const et = s.editTypeId ? tmap[s.editTypeId] : null;
 
     const items = s.items.filter(i => tmap[i.typeId]).map(i => {
-      const t = tmap[i.typeId], isSel = i.id === s.selId, m = i.m;
+      const t = tmap[i.typeId], isSel = i.id === s.selId, m = i.m, fit = this.fitText(i,t);
       const border = sh.bounds ? (isSel ? '0.35mm solid oklch(0.66 0.22 350)' : '0.3mm solid oklch(0.66 0.12 220)') : 'none';
       const bg = sh.bounds ? 'oklch(0.97 0.015 230 / 0.6)' : 'transparent';
       return {
         left: mm(i.x), top: mm(i.y), w: mm(t.w), h: mm(t.h), border, bg,
         outline: isSel ? '0.6mm solid oklch(0.7 0.22 350 / 0.35)' : 'none',
-        cursor: 'move',
+        cursor: i.locked ? 'not-allowed' : 'move',
         showImg: sh.bounds && !!t.img, bgImg: t.img ? 'url("' + t.img + '")' : 'none', imgOp: String((t.op ?? 60) / 100),
         showArea: sh.area,
         areaBorder: isSel ? '0.3mm dashed oklch(0.62 0.22 350)' : '0.25mm dashed oklch(0.7 0.15 350 / 0.55)',
@@ -848,7 +934,7 @@ ${pass === 'guides'
         ml: mm(m.l), mt: mm(m.t), mr: mm(m.r), mb: mm(m.b),
         textDisplay: sh.text && i.id !== s.editId ? 'flex' : 'none', segs: segsOf(i.text || ''),
         jc: { top: 'flex-start', center: 'center', bottom: 'flex-end' }[i.va] || 'center',
-        ta: i.ha, font: fontCss(i.font), fs: i.size + 'pt', lh: String(i.lh || 1.2), text: i.text,
+        ta: i.ha, font: fontCss(i.font), fs: fit.size + 'pt', lh: String(i.lh || 1.2), text: i.text, overflow: fit.overflow,
         showLabel: sh.area && !i.text && i.id !== s.editId, label: t.name,
         onDown: e => this.startMove(e, i.id), onDbl: e => this.onStickerDbl(e, i.id)
       };
@@ -858,13 +944,16 @@ ${pass === 'guides'
     if (sel && sh.area && !s.editId) {
       const t = tmap[sel.typeId], m = sel.m, hs = 10 / ppm, bw = 1.5 / ppm;
       const ax = sel.x + m.l, ay = sel.y + m.t, aw = t.w - m.l - m.r, ah = t.h - m.t - m.b;
-      const pts = { tl: [ax, ay], t: [ax + aw / 2, ay], tr: [ax + aw, ay], r: [ax + aw, ay + ah / 2], br: [ax + aw, ay + ah], b: [ax + aw / 2, ay + ah], bl: [ax, ay + ah], l: [ax, ay + ah / 2] };
-      const cur = { tl: 'nwse-resize', br: 'nwse-resize', tr: 'nesw-resize', bl: 'nesw-resize', t: 'ns-resize', b: 'ns-resize', l: 'ew-resize', r: 'ew-resize' };
-      handles = Object.keys(pts).map(k => ({
-        left: (pts[k][0] - hs / 2) + 'mm', top: (pts[k][1] - hs / 2) + 'mm', size: hs + 'mm', cursor: cur[k],
-        border: `${bw}mm solid oklch(0.62 0.22 350)`, radius: k.length === 2 ? '0' : '50%',
-        onDown: e => this.startArea(e, sel.id, k)
-      }));
+      const pts = { tl: [ax, ay], t: [ax + aw / 2, ay], tr: [ax + aw, ay], r: [ax + aw, ay + ah / 2], br: [ax + aw, ay + ah], b: [ax + aw / 2, ay + ah], bl: [ax, ay + ah], l: [ax, ay + ah / 2], c: [ax + aw / 2, ay + ah / 2] };
+      const cur = { tl: 'nwse-resize', br: 'nwse-resize', tr: 'nesw-resize', bl: 'nesw-resize', t: 'ns-resize', b: 'ns-resize', l: 'ew-resize', r: 'ew-resize', c:'move' };
+      handles = Object.keys(pts).map(k => {
+        const sz = k === 'c' ? hs * 1.25 : hs;
+        return {
+          left: (pts[k][0] - sz / 2) + 'mm', top: (pts[k][1] - sz / 2) + 'mm', size: sz + 'mm', cursor: cur[k],
+          border: `${bw}mm solid oklch(0.62 0.22 350)`, radius: k.length === 2 ? '0' : '50%', bg: k === 'c' ? 'oklch(0.7 0.22 350)' : '#ffffff',
+          onDown: e => this.startArea(e, sel.id, k)
+        };
+      });
     }
 
     const types = s.library.map(t => {
@@ -899,7 +988,8 @@ ${pass === 'guides'
     if (edIt) {
       const t = tmap[edIt.typeId], m = edIt.m;
       out0.editing = true;
-      out0.ed = { left: mm(edIt.x + m.l), top: mm(edIt.y + m.t), w: mm(t.w - m.l - m.r), h: mm(t.h - m.t - m.b), jc: { top: 'flex-start', center: 'center', bottom: 'flex-end' }[edIt.va] || 'center', ta: edIt.ha, font: fontCss(edIt.font), fs: edIt.size + 'pt', lh: String(edIt.lh || 1.2) };
+      const ef = this.fitText(edIt,t);
+      out0.ed = { left: mm(edIt.x + m.l), top: mm(edIt.y + m.t), w: mm(t.w - m.l - m.r), h: mm(t.h - m.t - m.b), jc: { top: 'flex-start', center: 'center', bottom: 'flex-end' }[edIt.va] || 'center', ta: edIt.ha, font: fontCss(edIt.font), fs: ef.size + 'pt', lh: String(edIt.lh || 1.2) };
       out0.edBar = edIt.y + t.h / 2 < 148 ? { top: 'auto', bottom: '40px' } : { top: '34px', bottom: 'auto' };
     } else { out0.editing = false; out0.ed = {}; out0.edBar = { top: '34px', bottom: 'auto' }; }
     const panelPrint = !!s.printPanel, panelType = !panelPrint && !!et, panelSel = !panelPrint && !et && !!sel;
@@ -948,7 +1038,10 @@ ${pass === 'guides'
       const t = tmap[sel.typeId], id = sel.id;
       out.sel = {
         name: t.name, dims: `${r1(t.w)} × ${r1(t.h)} mm`, text: sel.text, font: sel.font,
-        areaDims: `${r1(t.w - sel.m.l - sel.m.r)} × ${r1(t.h - sel.m.t - sel.m.b)} mm`
+        areaDims: `${r1(t.w - sel.m.l - sel.m.r)} × ${r1(t.h - sel.m.t - sel.m.b)} mm`,
+        lockIcon: sel.locked ? '🔒' : '🔓', lockLabel: sel.locked ? ui.unlockPosition : ui.lockPosition,
+        autoFit: sel.autoFit !== false, autoFitText: sel.autoFit !== false ? ui.autoFitOn : ui.autoFitOff,
+        fitSize: this.fitText(sel,t).size.toFixed(1) + ' pt', overflow: this.fitText(sel,t).overflow
       };
       out.posFields = [
         this.F(id + 'x', 'X', 'mm', sel.x, v => this.updItem(id, { x: r1(cl(v, 0, 210 - t.w)) })),
@@ -964,10 +1057,12 @@ ${pass === 'guides'
       out.vSeg = this.seg([['top', ui.alignV.top], ['center', ui.alignV.center], ['bottom', ui.alignV.bottom]], sel.va, v => this.updItem(id, { va: v }));
       out.onText = e => this.updItem(id, { text: e.target.value });
       out.onFont = e => { this.updItem(id, { font: e.target.value }); this.setState({ defFont: e.target.value }); };
+      out.toggleLock = () => { this.remember(); this.updItem(id, { locked: !sel.locked }); };
+      out.toggleAutoFit = () => { this.remember(); this.updItem(id, { autoFit: sel.autoFit === false }); };
       out.dupSel = () => this.dup(id);
       out.delSel = () => this.del(id);
       out.editSelType = () => this.setState({ editTypeId: t.id });
-      out.resetArea = () => this.updItem(id, { m: { ...t.m } });
+      out.resetArea = () => { this.remember(); this.updItem(id, { m: { ...t.m } }); };
       out.areaToType = () => this.updType(t.id, { m: { ...sel.m } });
       out.styleToAll = () => this.setState(st => ({ items: st.items.map(i => ({ ...i, font: sel.font, size: sel.size, ha: sel.ha, va: sel.va, lh: sel.lh })) }));
     }
@@ -1028,7 +1123,7 @@ ${pass === 'guides'
       out.stepSeg = this.seg([[0.5, '0.5'], [1, '1 mm'], [2, '2'], [5, '5']], s.step, v => this.setState({ step: v, snap: true }));
       out.exportJson = this.exportJson;
       out.importJson = () => this.jsonRef.current && this.jsonRef.current.click();
-      out.clearSheet = () => { if (s.items.length && confirm(ui.confirmClear)) this.setState({ items: [], selId: null }); };
+      out.clearSheet = () => { if (s.items.length && confirm(ui.confirmClear)) { this.remember(); this.setState({ items: [], selId: null }); } };
       out.shortcuts = ui.shortcuts.map(([d,k]) => ({d,k}));
     }
     return out;
